@@ -2,16 +2,17 @@
 
 <div class="container">
   <div class="row">
+    <div class="col-sm-6 col-md-4" ng-show="products.length < 1"> No products to show.</div>
     <div class="col-sm-6 col-md-4" ng-repeat="product in products">
       <div class="thumbnail">
         <img src="http://placehold.it/300x200" alt="{{product.title}}">
         <div class="caption">
           <h3>{{product.title}}</h3>
-         <p>{{product.description | limitTo: 15}}...</p>
-         <p>{{product.price | currency }}</p>
+          <p>{{product.description | limitTo: 100}} ...</p>
+          <p>{{product.price | currency }}</p>
           <p>
             <a href="#" class="btn btn-primary" role="button">Buy</a>
-            <a ui-sref="productDetails({id: product.id})" class="btn btn-default" role="button">Details</a>
+            <a ui-sref="viewProduct({id: product._id})" class="btn btn-default" role="button">Details</a>
           </p>
         </div>
       </div>
