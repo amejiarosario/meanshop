@@ -6,6 +6,7 @@
 'use strict';
 
 var MainPage = function() {
+  this.productsLink = element(by.linkText('Products'));
   this.heroEl = element(by.css('.hero-unit'));
   this.h1El = this.heroEl.element(by.css('h1'));
   this.imgEl = this.heroEl.element(by.css('img'));
