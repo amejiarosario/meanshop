@@ -7,6 +7,22 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var Product = require('../api/product/product.model');
+
+Product.find({}).remove(function() {
+  var num = 0;
+  Product.create({
+    title : 'Product ' + (++num),
+    price : num * 100.33,
+    stock : num * 3,
+    description : 'This is the description of product ' + num
+  }, {
+    title : 'Product ' + (++num),
+    price : num * 100.33,
+    stock : num * 3,
+    description : 'This is the description of product ' + num
+  });
+});
 
 Thing.find({}).remove(function() {
   Thing.create({
