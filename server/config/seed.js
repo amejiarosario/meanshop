@@ -21,7 +21,10 @@ Product.find({}).remove(function() {
     price : num * 100.33,
     stock : num * 3,
     description : 'This is the description of product ' + num
-  });
+  }, function() {
+      console.log('finished populating products');
+    }
+  );
 });
 
 Thing.find({}).remove(function() {
