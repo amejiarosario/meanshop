@@ -14,11 +14,16 @@ var config = require('./config/environment');
 // Connect to database
 mongoose.connect(config.mongo.uri, config.mongo.options);
 mongoose.connection.on('error', function(err) {
-	console.error('MongoDB connection error: ' + err);
-	process.exit(-1);
-	}
+  console.error('MongoDB connection error: ' + err);
+  process.exit(-1);
+  }
 );
-// Populate DB with sample data
+mongoose.connection.on('open', function () {
+  if(config.cleanDB) {
+    require('./config/cleandb')(mongoose);
+  }
+});
+
 if(config.seedDB) { require('./config/seed'); }
 
 // Setup server

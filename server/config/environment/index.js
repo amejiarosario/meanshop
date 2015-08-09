@@ -24,6 +24,9 @@ var all = {
   // Server IP
   ip: process.env.IP || '0.0.0.0',
 
+  // should wipe out DB
+  cleanDB: false,
+
   // Should we populate the DB with sample data?
   seedDB: false,
 
