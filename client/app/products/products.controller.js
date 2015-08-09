@@ -1,5 +1,7 @@
 'use strict';
 
+var errorHandler;
+
 angular.module('meanshopApp')
   .controller('ProductsCtrl', function ($scope, Product) {
     $scope.products = Product.query();
@@ -33,9 +35,9 @@ angular.module('meanshopApp')
     };
   });
 
-function errorHandler($scope){
+errorHandler = function ($scope){
   return function error(httpResponse){
     // console.error(httpResponse);
     $scope.errors = httpResponse;
   };
-}
+};
