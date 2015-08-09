@@ -2,7 +2,14 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-sm-6 col-md-4" ng-show="products.length < 1"> No products to show.</div>
+    <div class="col-sm-6 col-md-4">
+      <h1>Products</h1>
+      <p ng-show="products.length < 1">No products to show.</p>
+      <a ui-sref="newProduct">New Product</a>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-sm-6 col-md-4" ng-repeat="product in products">
       <div class="thumbnail">
         <img src="http://placehold.it/300x200" alt="{{product.title}}">
