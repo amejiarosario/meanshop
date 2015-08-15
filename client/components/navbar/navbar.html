@@ -23,6 +23,12 @@
         <li ng-show="isLoggedIn()"><p class="navbar-text">Hello {{ getCurrentUser().name }}</p> </li>
         <li ng-show="isLoggedIn()" ng-class="{active: isActive('/settings')}"><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
         <li ng-show="isLoggedIn()" ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Logout</a></li>
+
+        <li>
+          <a ui-sref="checkout">
+            <ngcart-summary template-url="components/ngcart/summary.html"></ngcart-summary>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
