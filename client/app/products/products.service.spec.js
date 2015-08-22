@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: products', function () {
+describe('Service: Product', function () {
 
   // load the service's module
   beforeEach(module('meanshopApp'));
 
   // instantiate service
-  var products;
-  beforeEach(inject(function (_products_) {
-    products = _products_;
+  var Product;
+  beforeEach(inject(function (_Product_) {
+    Product = _Product_;
   }));
 
   it('should do something', function () {
-    expect(!!products).to.be.true;
+    expect(!!Product).to.be.true;
   });
 
 });
