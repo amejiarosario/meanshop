@@ -5,6 +5,9 @@ angular.module('meanshopApp')
     $scope.menu = [{
       'title': 'Home',
       'state': 'main'
+    }, {
+      'title': 'Products',
+      'state': 'products'
     }];
 
     $scope.isCollapsed = true;
