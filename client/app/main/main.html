@@ -2,28 +2,30 @@
 
 <header class="hero-unit" id="banner">
   <div class="container">
-    <h1>'Allo, 'Allo!</h1>
-    <p class="lead">Kick-start your next web app with Angular Fullstack</p>
-    <img src="assets/images/yeoman.png" alt="I'm Yeoman">
+    <h1>MEANshop</h1>
+    <p class="lead">The MEAN stack one stop shop</p>
+    <img src="assets/images/logo.png" alt="the meanstack shop">
   </div>
 </header>
 
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <h1 class="page-header">Features:</h1>
-      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="thing in awesomeThings">
-        <li><a href="#" tooltip="{{thing.info}}">{{thing.name}}<button type="button" class="close" ng-click="deleteThing(thing)">&times;</button></a></li>
+      <h1 class="page-header">Featured Products:</h1>
+      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="product in products">
+        <li><a ui-sref="viewProduct({id: product._id})" tooltip="{{product.description}}">
+          {{product.title}} -
+          <span class="text-muted">{{product.price | currency}}</span>
+        </a></li>
       </ul>
     </div>
   </div>
 
   <form class="thing-form">
-    <label>Syncs in realtime across clients</label>
+    <label>Sell your Products</label>
     <p class="input-group">
-      <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newThing">
       <span class="input-group-btn">
-        <button type="submit" class="btn btn-primary" ng-click="addThing()">Add New</button>
+        <button class="btn btn-primary" ui-sref="newProduct()">Add New</button>
       </span>
     </p>
   </form>
