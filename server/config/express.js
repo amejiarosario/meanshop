@@ -56,7 +56,7 @@ module.exports = function(app) {
     app.use(require('connect-livereload')());
     app.use(express.static(path.join(config.root, '.tmp')));
     app.use(express.static(app.get('appPath')));
-    app.use(morgan('dev'));
+    if('development' === env) app.use(morgan('dev'));
     app.use(errorHandler()); // Error handler - has to be last
   }
 };
