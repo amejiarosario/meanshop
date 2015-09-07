@@ -5,10 +5,10 @@
     <div class="col-sm-6 col-md-4" ng-show="products.length < 1"> No products to show.</div>
     <div class="col-sm-6 col-md-4" ng-repeat="product in products">
       <div class="thumbnail">
+        <h3>{{product.title}}</h3>
         <img src="http://placehold.it/300x200" alt="{{product.title}}">
+        <figcaption class="figure-caption">{{product.description | limitTo: 100}} ...</figcaption>
         <div class="caption">
-          <h3>{{product.title}}</h3>
-          <p>{{product.description | limitTo: 100}} ...</p>
           <p>{{product.price | currency }}</p>
           <p>
             <a href="#" class="btn btn-primary" role="button">Buy</a>
