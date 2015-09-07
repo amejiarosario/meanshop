@@ -16,7 +16,7 @@ angular.module('meanshopApp')
       })
 
       .state('viewProduct', {
-        url: '/products/:id',
+        url: '/products/:id/view',
         templateUrl: 'app/products/templates/product-view.html',
         controller: 'ProductViewCtrl'
       })
