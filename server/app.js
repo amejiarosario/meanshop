@@ -35,7 +35,9 @@ require('./routes')(app);
 // Start server
 function startServer() {
   server.listen(config.port, config.ip, function() {
-    console.log('Express server listening on %s:%d, in %s mode', config.ip, config.port, app.get('env'));
+    if('test' !== app.get('env')) {
+      console.log('Express server listening on %s:%d, in %s mode', config.ip, config.port, app.get('env'));
+    }
   });
 }
 
