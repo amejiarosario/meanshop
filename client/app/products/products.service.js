@@ -19,7 +19,7 @@ angular.module('meanshopApp')
       get: function(params){
         var result = {};
         angular.forEach(exampleProducts, function (product) {
-          if(product._id == params.id){
+          if(product._id === parseInt(params.id)){
             this.product = product;
             return;
           }
@@ -29,7 +29,7 @@ angular.module('meanshopApp')
 
       delete: function(params){
         angular.forEach(exampleProducts, function (product, index) {
-          if(product._id == params._id){
+          if(product._id === params._id){
             console.log(product, index);
             exampleProducts.splice(index, 1);
             return;
