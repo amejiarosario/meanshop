@@ -3,26 +3,44 @@
   <p>{{errors}}</p>
 </div>
 
-<div class="form-group">
-  <label for="title" class="col-sm-2 control-label">Title</label>
-  <div class="col-sm-10">
-    <input type="text" ng-model="product.title" class="form-control" id="title" placeholder="product title"/>
+<div class="row">
+  <div class="col-md-2">
+    <div ngf-select="upload($file)" ngf-drop="upload($file)" class="drop-box"
+      ngf-drag-over-class="dragover" ngf-multiple="true"
+      ngf-pattern="'image/*'" ngf-max-size="15MB" accept="image/*">Drop Images here or click to upload</div>
+    <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
+    <button accept="image/*" ngf-max-size="15MB" type="file" class="btn btn-primary" ngf-select="upload($file)">Upload on file select</button>
+
+    <h2 ng-show="file">Preview</h2>
+    <img ngf-src="file" width="170px">
+    <div ng-show="file">{{file.name}} {{file.$error}} {{file.$errorParam}}</div>
   </div>
-</div>
-<div class="form-group">
-  <label for="year" class="col-sm-2 control-label">Description</label>
-  <div class="col-sm-10">
-    <input type="text" ng-model="product.description" class="form-control" id="description" placeholder="Describe your product..."/>
-  </div>
-</div>
-<div class="form-group">
-  <label for="director" class="col-sm-2 control-label">Price</label>
-  <div class="col-sm-10">
-    <input type="number" step="any" min="0" ng-model="product.price" class="form-control" id="price" placeholder="0.00"/>
-  </div>
-</div>
-<div class="form-group">
-  <div class="col-sm-offset-2 col-sm-10">
-    <input type="submit" class="btn btn-primary" value="Save"/>
+
+  <div class="col-md-10">
+    <div class="form-group">
+      <label for="title" class="col-sm-2 control-label">Title</label>
+      <div class="col-sm-10">
+        <input type="text" ng-model="product.title" class="form-control" id="title" placeholder="product title"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="year" class="col-sm-2 control-label">Description</label>
+      <div class="col-sm-10">
+        <input type="text" ng-model="product.description" class="form-control" id="description" placeholder="Describe your product..."/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="director" class="col-sm-2 control-label">Price</label>
+      <div class="col-sm-10">
+        <input type="number" step="any" min="0" ng-model="product.price" class="form-control" id="price" placeholder="0.00"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <input type="submit" class="btn btn-primary" value="Save"/>
+      </div>
+    </div>
   </div>
 </div>
