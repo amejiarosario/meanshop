@@ -68,5 +68,4 @@ uploadHander = function ($scope, Upload, $timeout) {
       });
     }
   };
-}
-
+};

@@ -6,7 +6,7 @@
     <div class="col-sm-6 col-md-4" ng-repeat="product in products">
       <div class="thumbnail">
         <h3>{{product.title}}</h3>
-        <img src="/assets/images/placeholder.png" alt="{{product.title}}">
+        <img src="{{product.imageUrl}}" alt="{{product.title}}">
         <figcaption class="figure-caption">{{product.description | limitTo: 100}} ...</figcaption>
         <div class="caption">
           <p>{{product.price | currency }}</p>

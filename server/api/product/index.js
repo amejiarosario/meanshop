@@ -2,9 +2,14 @@
 
 var express = require('express');
 var controller = require('./product.controller');
+var multiparty = require('connect-multiparty');
+var uploadOptions = { autoFile: true,
+                      uploadDir: 'client/assets/uploads/'
+}
 
 var router = express.Router();
 
+router.post('/:id/upload', multiparty(uploadOptions), controller.upload);
 router.get('/', controller.index);
 router.get('/:id', controller.show);
 router.post('/', controller.create);
