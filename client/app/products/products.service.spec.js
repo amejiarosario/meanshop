@@ -6,6 +6,8 @@ describe('Service: Product', function () {
 
   // load the service's module
   beforeEach(module('meanshopApp'));
+  beforeEach(module('stateMock'));
+  beforeEach(module('socketMock'));
 
   // instantiate service
   var Product,
@@ -50,7 +52,7 @@ describe('Service: Product', function () {
   });
 
   describe('#create', function() {
-    before(function() {
+    beforeEach(function() {
       $httpBackend
         .expect('POST', '/api/products', JSON.stringify(newAttributes))
         .respond(productWithId);
@@ -58,7 +60,7 @@ describe('Service: Product', function () {
 
     it('should create a new Product from the class', function() {
       var newProduct = Product.save(newAttributes, successCb(productWithId));
-      expect(to_json(newProduct)).to.eql(newAttributes);
+      expect(toJson(newProduct)).to.eql(newAttributes);
     });
 
     it('should create a new product from the instance', function() {
@@ -67,7 +69,7 @@ describe('Service: Product', function () {
       product.price = 1000;
 
       product.$save(successCb(productWithId));
-      expect(to_json(product)).to.eql(newAttributes);
+      expect(toJson(product)).to.eql(newAttributes);
     });
 
   });
@@ -97,7 +99,7 @@ describe('Service: Product', function () {
     });
   });
 
-  function to_json(obj){
+  function toJson(obj){
     return JSON.parse(JSON.stringify(obj));
   }
 
