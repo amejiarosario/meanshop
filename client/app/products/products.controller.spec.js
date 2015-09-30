@@ -51,11 +51,11 @@ describe('Controller: ProductsCtrl', function () {
       var stub = sinon.stub(Product, 'delete', callCallbackWithError());
       scope.deleteProduct();
       state.go.should.have.been.calledWith('products');
-      assert(stub.withArgs({id: mockProduct._id}).calledOnce)
+      assert(stub.withArgs({id: mockProduct._id}).calledOnce);
     });
 
     it('should not redirect if an error occurs', function() {
-      var stub = sinon.stub(Product, 'delete', callCallbackWithError(true));
+      sinon.stub(Product, 'delete', callCallbackWithError(true));
       scope.deleteProduct();
       expect(state.go.calledOnce).to.equal(false);
     });
@@ -74,12 +74,12 @@ describe('Controller: ProductsCtrl', function () {
       var stub = sinon.stub(Product, 'save', callCallbackWithError(false));
       scope.product = mockProduct;
       scope.addProduct();
-      assert(stub.withArgs(mockProduct).calledOnce)
+      assert(stub.withArgs(mockProduct).calledOnce);
       state.go.should.have.been.calledWith('viewProduct', {id: mockProduct._id});
     });
 
     it('should not redirect if save fails', function() {
-      var stub = sinon.stub(Product, 'save', callCallbackWithError(true));
+      sinon.stub(Product, 'save', callCallbackWithError(true));
       scope.product = mockProduct;
       scope.addProduct();
       expect(state.go.calledOnce).to.equal(false);
@@ -109,7 +109,7 @@ describe('Controller: ProductsCtrl', function () {
     });
 
     it('should not redirect if failed', function() {
-      var stub = sinon.stub(Product, 'update', callCallbackWithError(true, mockProduct));
+      sinon.stub(Product, 'update', callCallbackWithError(true, mockProduct));
       scope.editProduct();
       expect(state.go.calledOnce).to.equal(false);
     });
