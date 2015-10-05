@@ -1,6 +1,6 @@
 'use strict';
 
-describe.only('Products View', function() {
+describe('Products View', function() {
   var page = require('./product.po'),
       timestamp = (new Date()).getTime(),
       title = 'Product ' + timestamp,
