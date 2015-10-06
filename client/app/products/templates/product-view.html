@@ -9,7 +9,8 @@
         <p>{{product.description}}</p>
         <p>{{product.price | currency }}</p>
         <p>
-          <a href="#" class="btn btn-primary" role="button">Buy</a>
+          <ngcart-addtocart id="{{product._id}}" quantity="1" quantity-max="9" name="{{product.title}}" price="{{product.price}}" template-url="components/ngcart/addtocart.html" data="product">Add to Cart</ngcart-addtocart>
+
           <a ui-sref="products" class="btn btn-default" role="button">Back</a>
           <a ui-sref="editProduct({id: product._id})" class="btn btn-default" role="button">Edit</a>
           <a class="btn btn-danger" ng-click="deleteProduct()">Delete</a>
