@@ -3,7 +3,13 @@
 var app = require('../..');
 var request = require('supertest');
 
-var newOrder;
+var newOrder,
+    orderAttributes = {
+      total: 100.00
+    },
+    orderUpdated = {
+      total: 200.00
+    };
 
 describe('Order API:', function() {
 
@@ -34,10 +40,7 @@ describe('Order API:', function() {
     beforeEach(function(done) {
       request(app)
         .post('/api/orders')
-        .send({
-          name: 'New Order',
-          info: 'This is the brand new order!!!'
-        })
+        .send(orderAttributes)
         .expect(201)
         .expect('Content-Type', /json/)
         .end(function(err, res) {
@@ -50,8 +53,7 @@ describe('Order API:', function() {
     });
 
     it('should respond with the newly created order', function() {
-      expect(newOrder.name).to.equal('New Order');
-      expect(newOrder.info).to.equal('This is the brand new order!!!');
+      expect(newOrder.total).to.equal(100);
     });
 
   });
@@ -78,8 +80,7 @@ describe('Order API:', function() {
     });
 
     it('should respond with the requested order', function() {
-      expect(order.name).to.equal('New Order');
-      expect(order.info).to.equal('This is the brand new order!!!');
+      expect(order.total).to.equal(100);
     });
 
   });
@@ -90,10 +91,7 @@ describe('Order API:', function() {
     beforeEach(function(done) {
       request(app)
         .put('/api/orders/' + newOrder._id)
-        .send({
-          name: 'Updated Order',
-          info: 'This is the updated order!!!'
-        })
+        .send(orderUpdated)
         .expect(200)
         .expect('Content-Type', /json/)
         .end(function(err, res) {
@@ -110,8 +108,7 @@ describe('Order API:', function() {
     });
 
     it('should respond with the updated order', function() {
-      expect(updatedOrder.name).to.equal('Updated Order');
-      expect(updatedOrder.info).to.equal('This is the updated order!!!');
+      expect(updatedOrder.total).to.equal(200);
     });
 
   });
