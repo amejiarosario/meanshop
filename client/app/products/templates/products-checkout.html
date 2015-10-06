@@ -1,0 +1,21 @@
+<navbar></navbar>
+
+<div class="container">
+  <div class="row">
+    <h1>Cart</h1>
+    <ngcart-cart template-url="components/ngcart/cart.html"></ngcart-cart>
+  </div>
+
+  <div class="row">
+    <h1>Choose a payment method</h1>
+    <p class="help-block">{{ errors }}</p><br>
+    <div class="col-md-3">
+      <ngcart-checkout service="http" settings="payPalSettings" template-url="components/ngCart/checkout.html">Checkout with PayPal</ngcart-checkout>
+    </div>
+    <div class="col-md-3">
+      <ngcart-checkout service="stripe" settings="stripeSettings" template-url="components/ngcart/checkout.html">Checkout with Card</ngcart-checkout>
+    </div>
+  </div>
+</div>
+
+<footer></footer>

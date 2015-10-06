@@ -35,6 +35,25 @@ angular.module('meanshopApp')
     };
 
     $scope.upload = uploadHander($scope, Upload, $timeout);
+  })
+
+  .controller('ProductCheckoutCtrl', function($scope, $window){
+    $scope.errors = '';
+
+    $scope.payPalSettings = {
+      url: '/api/orders/checkout',
+      data: {
+        payment: 'paypal'
+      }
+    };
+
+    $scope.$on('ngCart:checkout_success', function(event, data){
+      $window.location.href = data.payment.links[1].href;
+    });
+
+    $scope.$on('ngCart:checkout_failed', function (event, err) {
+      $scope.errors = err.error.response;
+    });
   });
 
 errorHandler = function ($scope){
