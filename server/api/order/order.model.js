@@ -12,7 +12,7 @@ var OrderDetailsSchema = new Schema({
 var OrderSchema = new Schema({
   total: { type: Number, required: true },
   products: [OrderDetailsSchema],
-  name: String
+  name: String,
   user: { type: Schema.Types.ObjectId, ref: 'User' },
   shipping: { type: Number, default: 0.0 },
   tax: { type: Number, default: 0.0 },
