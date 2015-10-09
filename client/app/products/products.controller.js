@@ -39,31 +39,15 @@ angular.module('meanshopApp')
 
   .constant('clientTokenPath', '/api/braintree/client_token')
 
-  .controller('ProductCheckoutCtrl', function($scope, $window, $http, $state, ngCart){
+  .controller('ProductCheckoutCtrl',
+    function($scope, $window, $http, $state, ngCart){
     $scope.errors = '';
-
-    $scope.payPalSettings = {
-      url: '/api/orders/checkout',
-      data: {
-        payment: 'paypal'
-      }
-    };
-
-    $scope.$on('ngCart:checkout_success', function(event, data){
-      $window.location.href = data.payment.links[1].href;
-    });
-
-    $scope.$on('ngCart:checkout_failed', function (event, err) {
-      $scope.errors = err.error.response;
-    });
 
     $scope.paymentOptions = {
       onPaymentMethodReceived: function(payload) {
-        payload.totalCost = ngCart.totalCost() || 0.00;
         payload.cart = ngCart.toObject();
-
-        $http.post('/api/braintree/checkout', payload)
-        .then(function success (res) {
+        $http.post('/api/orders', payload)
+        .then(function success () {
           ngCart.empty(true);
           $state.go('products');
         }, function error (res) {
