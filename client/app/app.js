@@ -8,7 +8,8 @@ angular.module('meanshopApp', [
   'ui.router',
   'ui.bootstrap',
   'ngFileUpload',
-  'ngCart'
+  'ngCart',
+  'braintree-angular'
 ])
   .config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

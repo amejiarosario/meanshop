@@ -9,11 +9,59 @@
   <div class="row">
     <h1>Choose a payment method</h1>
     <p class="help-block">{{ errors }}</p><br>
-    <div class="col-md-3">
-      <ngcart-checkout service="http" settings="payPalSettings" template-url="components/ngCart/checkout.html">Checkout with PayPal</ngcart-checkout>
+    <div class="col-md-6">
+      <form>
+        <braintree-dropin options="paymentOptions">Loading...</braintree-dropin>
+        <input type="submit" value="Purchase" />
+      </form>
+      <!-- <ngcart-checkout service="braintree" settings="payPalSettings" template-url="components/ngCart/checkout.html"></ngcart-checkout> -->
+<!--       <braintree-paypal
+        options="paypalOptions"
+        >Loading PayPal button...</braintree-paypal> -->
+      <!-- <ngcart-checkout service="http" settings="payPalSettings" template-url="components/ngCart/checkout.html">Checkout with PayPal</ngcart-checkout> -->
     </div>
-    <div class="col-md-3">
+<!--     <div class="col-md-3">
       <ngcart-checkout service="stripe" settings="stripeSettings" template-url="components/ngcart/checkout.html">Checkout with Card</ngcart-checkout>
+    </div> -->
+    <div class="col-md-6">
+
+      <!-- <braintree options="paypalOptions">Loading PayPal button...</braintree> -->
+
+<!--       <div class="form-group">
+        <label for="cardNumber">Card Number</label>
+        <div class="input-group">
+          <input
+            ng-model="creditCard.number"
+            type="tel"
+            class="form-control"
+            name="cardNumber"
+            placeholder="Valid Card Number"
+            autocomplete="cc-number"
+            required autofocus
+          />
+          <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+        </div>
+      </div>
+
+<div class="form-group">
+    <label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
+    <input
+      ng-model="creditCard.expirationDate"
+      type="tel"
+      class="form-control"
+      name="cardExpiry"
+      placeholder="MM / YY"
+      autocomplete="cc-exp"
+      required
+    />
+</div> -->
+
+<!--   <input
+    type="submit"
+    value="Purchase"
+    ng-click="payButtonClicked()"
+    class="btn btn-primary"
+    /> -->
     </div>
   </div>
 </div>

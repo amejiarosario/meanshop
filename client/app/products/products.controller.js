@@ -37,7 +37,9 @@ angular.module('meanshopApp')
     $scope.upload = uploadHander($scope, Upload, $timeout);
   })
 
-  .controller('ProductCheckoutCtrl', function($scope, $window){
+  .constant('clientTokenPath', '/api/braintree/client_token')
+
+  .controller('ProductCheckoutCtrl', function($scope, $window, $http, $state, ngCart /*, $braintree*/){
     $scope.errors = '';
 
     $scope.payPalSettings = {
@@ -54,6 +56,67 @@ angular.module('meanshopApp')
     $scope.$on('ngCart:checkout_failed', function (event, err) {
       $scope.errors = err.error.response;
     });
+
+    $scope.paymentOptions = {
+      onPaymentMethodReceived: function(payload) {
+        payload.totalCost = ngCart.totalCost() || 0.00;
+        console.log('Payment nonce:', payload);
+        $http.post('/api/braintree/checkout', payload)
+        .then(function success (res) {
+          console.log('success: ', res);
+          ngCart.empty(true);
+          $state.go('products');
+        }, function error (res) {
+          console.log('error: ', res);
+          $scope.errors = res;
+        });
+      },
+      onUnsupported: function (err) {
+        console.log('An error ocurred. ', err);
+      },
+      onCancelled: function (data) {
+        console.log('User cancelled transaction. ', data);
+      }
+    };
+
+    //-------
+
+    // var client;
+    // $scope.creditCard = {
+    //   number: '',
+    //   expirationDate: ''
+    // };
+
+    // $scope.paypalOptions = {
+    //   onPaymentMethodReceived: function(payload) {
+    //     console.log('Yay, payload with nonce:', payload);
+    //   }
+    // };
+
+    // var startup = function() {
+    //   $braintree.getClientToken().success(function(token) {
+    //     client = new $braintree.api.Client({
+    //       clientToken: token
+    //     });
+    //   });
+    // }
+
+    // $scope.payButtonClicked = function() {
+
+    //   // - Validate $scope.creditCard
+    //   // - Make sure client is ready to use
+
+    //   client.tokenizeCard({
+    //     number: $scope.creditCard.number,
+    //     expirationDate: $scope.creditCard.expirationDate
+    //   }, function (err, nonce) {
+    //     // - Send nonce to your server (e.g. to make a transaction)
+    //     console.log(err, nonce);
+
+    //   });
+    // };
+
+    // startup();
   });
 
 errorHandler = function ($scope){

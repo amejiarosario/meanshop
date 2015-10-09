@@ -24,3 +24,10 @@
     </form>
 
 </div>
+
+<div ng-if="service=='braintree'">
+  <form>
+    <braintree-dropin options="paymentOptions">Loading...</braintree-dropin>
+    <input type="submit" value="Purchase" />
+  </form>
+</div>
