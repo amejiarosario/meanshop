@@ -39,7 +39,7 @@ angular.module('meanshopApp')
 
   .constant('clientTokenPath', '/api/braintree/client_token')
 
-  .controller('ProductCheckoutCtrl', function($scope, $window, $http, $state, ngCart /*, $braintree*/){
+  .controller('ProductCheckoutCtrl', function($scope, $window, $http, $state, ngCart){
     $scope.errors = '';
 
     $scope.payPalSettings = {
@@ -78,45 +78,6 @@ angular.module('meanshopApp')
         console.log('User cancelled transaction. ', data);
       }
     };
-
-    //-------
-
-    // var client;
-    // $scope.creditCard = {
-    //   number: '',
-    //   expirationDate: ''
-    // };
-
-    // $scope.paypalOptions = {
-    //   onPaymentMethodReceived: function(payload) {
-    //     console.log('Yay, payload with nonce:', payload);
-    //   }
-    // };
-
-    // var startup = function() {
-    //   $braintree.getClientToken().success(function(token) {
-    //     client = new $braintree.api.Client({
-    //       clientToken: token
-    //     });
-    //   });
-    // }
-
-    // $scope.payButtonClicked = function() {
-
-    //   // - Validate $scope.creditCard
-    //   // - Make sure client is ready to use
-
-    //   client.tokenizeCard({
-    //     number: $scope.creditCard.number,
-    //     expirationDate: $scope.creditCard.expirationDate
-    //   }, function (err, nonce) {
-    //     // - Send nonce to your server (e.g. to make a transaction)
-    //     console.log(err, nonce);
-
-    //   });
-    // };
-
-    // startup();
   });
 
 errorHandler = function ($scope){
