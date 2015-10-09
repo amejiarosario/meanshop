@@ -60,14 +60,13 @@ angular.module('meanshopApp')
     $scope.paymentOptions = {
       onPaymentMethodReceived: function(payload) {
         payload.totalCost = ngCart.totalCost() || 0.00;
-        console.log('Payment nonce:', payload);
+        payload.cart = ngCart.toObject();
+
         $http.post('/api/braintree/checkout', payload)
         .then(function success (res) {
-          console.log('success: ', res);
           ngCart.empty(true);
           $state.go('products');
         }, function error (res) {
-          console.log('error: ', res);
           $scope.errors = res;
         });
       },
