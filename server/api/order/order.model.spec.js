@@ -31,7 +31,7 @@ describe('Order', function() {
 
     it('should create an order with valid attributes', function(done) {
       var attributes = {
-        products: products.map(function(p){ return p._id; }),
+        items: products.map(function(p){ return p._id; }),
         user: user._id,
         total: products.reduce(function(p, c) { return p.price + c.price; }),
       };
@@ -39,7 +39,7 @@ describe('Order', function() {
       Order.create(attributes).then(function (results) {
         return Order.findOne({}).populate(['products', 'user']);
       }).then(function(order){
-        order.products.length.should.be.equal(2);
+        order.items.length.should.be.equal(2);
         order.total.should.be.equal(111.11+2222.22);
         order.shipping.should.be.equal(0.0);
         order.tax.should.be.equal(0.0);
@@ -50,16 +50,15 @@ describe('Order', function() {
 
     it('should not create an Order without total', function(done) {
       var invalid_attributes = {
-        products: products.map(function(p){ return p._id; }),
+        items: products.map(function(p){ return p._id; }),
         user: user._id,
       };
 
-      Order.create(invalid_attributes).then(function (results) {
-        return Order.findOne({}).populate(['products', 'user']);
-      }).then(function(order){
-        order.should.be.null;
-        done();
-      }).then(null, function(err){
+      Order.createAsync(invalid_attributes)
+      .then(function (res) {
+        done(new Error('Validation failed. Should not create order ' + res));
+      })
+      .catch(function(err){
         err.should.not.be.null;
         err.message.should.match(/validation\ failed/);
         done();

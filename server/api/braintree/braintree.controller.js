@@ -36,7 +36,7 @@ exports.clientToken = function(req, res){
 
 exports.checkout = function(req, res){
   Braintree.transaction.sale({
-    amount: req.body.cart.totalCost,
+    amount: req.body.total,
     paymentMethodNonce: req.body.nonce,
   }, function callback (err, result) {
     if(err) {

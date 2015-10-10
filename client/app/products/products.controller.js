@@ -40,12 +40,13 @@ angular.module('meanshopApp')
   .constant('clientTokenPath', '/api/braintree/client_token')
 
   .controller('ProductCheckoutCtrl',
-    function($scope, $window, $http, $state, ngCart){
+    function($scope, $http, $state, ngCart){
     $scope.errors = '';
 
     $scope.paymentOptions = {
       onPaymentMethodReceived: function(payload) {
-        payload.cart = ngCart.toObject();
+        angular.merge(payload, ngCart.toObject());
+        payload.total = payload.totalCost;
         $http.post('/api/orders', payload)
         .then(function success () {
           ngCart.empty(true);
@@ -53,12 +54,6 @@ angular.module('meanshopApp')
         }, function error (res) {
           $scope.errors = res;
         });
-      },
-      onUnsupported: function (err) {
-        console.log('An error ocurred. ', err);
-      },
-      onCancelled: function (data) {
-        console.log('User cancelled transaction. ', data);
       }
     };
   });

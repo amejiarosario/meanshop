@@ -76,7 +76,7 @@ exports.show = function(req, res) {
 
 // Creates a new Order in the DB
 exports.create = function(req, res) {
-  Order.createAsync({payload: req.body})
+  Order.createAsync(req.body)
     .then(responseWithResult(res, 201))
     .catch(handleError(res));
 };
