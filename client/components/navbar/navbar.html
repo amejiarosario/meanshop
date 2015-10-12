@@ -17,6 +17,17 @@
         <li ng-show="isAdmin()" ui-sref-active="active"><a ui-sref="admin">Admin</a></li>
       </ul>
 
+      <!-- search bar -->
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon"><span class="fa fa-search"></span></span>
+            <input type="text" class="form-control input-large" placeholder="Search" ng-model="searchTerm" ng-change="search()">
+          </div>
+        </div>
+      </form>
+
+
       <ul class="nav navbar-nav navbar-right">
         <li ng-hide="isLoggedIn()" ui-sref-active="active"><a ui-sref="signup">Sign up</a></li>
         <li ng-hide="isLoggedIn()" ui-sref-active="active"><a ui-sref="login">Login</a></li>
