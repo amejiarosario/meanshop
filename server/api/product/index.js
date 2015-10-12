@@ -16,5 +16,8 @@ router.post('/', controller.create);
 router.put('/:id', controller.update);
 router.patch('/:id', controller.update);
 router.delete('/:id', controller.destroy);
+router.get('/:slug/catalog', controller.catalog);
+router.get('/:term/search', controller.search);
+
 
 module.exports = router;
