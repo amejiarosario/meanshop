@@ -1,0 +1,7 @@
+<div ng-controller="SidebarCtrl" class="sidebar">
+  <ul class="nav nav-sidebar">
+    <li ng-repeat="category in catalog" ng-class="{active: isActive(category.slug)}">
+      <a ui-sref="productCatalog({slug: category.slug})">{{category.name}}</a>
+    </li>
+  </ul>
+</div>

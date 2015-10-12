@@ -2,8 +2,9 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-sm-6 col-md-4" ng-show="products.length < 1"> No products to show.</div>
-    <div class="col-sm-6 col-md-4" ng-repeat="product in products">
+    <div class="col-md-3" ng-include="'components/sidebar/sidebar.html'"></div>
+    <div class="col-sm-6 col-md-9" ng-show="products.length < 1"> No products to show.</div>
+    <div class="col-sm-6 col-md-6" ng-repeat="product in products">
       <div class="thumbnail">
         <h3>{{product.title}}</h3>
         <img src="{{product.imageUrl}}" alt="{{product.title}}">
