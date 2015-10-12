@@ -21,6 +21,7 @@
     "lodash": "~2.4.1",
     "method-override": "~1.0.0",
     "mongoose": "^4.1.2",
+    "mongoose-url-slugs": "^0.1.4",
     "morgan": "~1.0.0",
     "passport": "~0.2.0",
     "passport-facebook": "latest",
