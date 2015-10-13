@@ -16,3 +16,36 @@
 .drop-box.dragover-err {
   border: 5px dashed red;
 }
+
+.productbox {
+  background-color:#ffffff;
+  padding:10px;
+  margin-bottom:10px;
+  box-shadow: 0 8px 6px -6px #999;
+}
+
+.producttitle {
+  font-weight:bold;
+  padding:5px 0 5px 0;
+}
+
+.productprice {
+  border-top:1px solid #dadada;
+  padding-top:5px;
+}
+
+.pricetext {
+  font-weight:bold;
+  font-size:1.4em;
+}
+
+@media (min-width: 992px) {
+  .productdescription {
+    height: 315px;
+    overflow: scroll;
+  }
+
+  .thumbnail img{
+    height: 240px;
+  }
+}

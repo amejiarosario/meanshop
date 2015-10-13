@@ -65,7 +65,7 @@ Catalog
       price: 15,
       stock: 100,
       categories: [clothing],
-      description: 'tshirt with the MEAN logo'
+      description: 'T-shirt with the MEAN stack logo'
     }, {
       title: 'Coffee Mug',
       imageUrl: '/assets/uploads/meanmug.jpg',
