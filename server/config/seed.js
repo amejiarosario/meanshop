@@ -7,6 +7,8 @@
 
 var User = require('../api/user/user.model');
 var Product = require('../api/product/product.model');
+var Catalog = require('../api/catalog/catalog.model');
+var mainCatalog, home, books, clothing;
 
 User.find({}).removeAsync()
   .then(function() {
@@ -27,28 +29,55 @@ User.find({}).removeAsync()
     });
   });
 
-Product.find({}).removeAsync()
+Catalog
+  .find({})
+  .remove()
+  .then(function () {
+    return Catalog.create({ name: 'All'});
+  })
+  .then(function (catalog) {
+    mainCatalog = catalog;
+    return mainCatalog.addChild({name: 'Home'});
+  })
+  .then(function (category) {
+    home = category._id;
+    return mainCatalog.addChild({name: 'Books'});
+  })
+  .then(function (category) {
+    books = category._id;
+    return mainCatalog.addChild({name: 'Clothing'});
+  })
+  .then(function (category) {
+    clothing = category._id;
+    return Product.find({}).remove({});
+  })
   .then(function() {
-    Product.createAsync({
+    return Product.create({
       title: 'MEAN eCommerce Book',
       imageUrl: '/assets/uploads/meanbook.jpg',
       price: 25,
       stock: 250,
+      categories: [books],
       description: 'Build a powerful e-commerce application quickly with MEAN, a leading full-JavaScript stack. It takes you step-by-step from creating a real-world store to managing details such as authentication, shopping carts, payment, scalability and more.'
     }, {
       title: 'tshirt',
       imageUrl: '/assets/uploads/meantshirt.jpg',
       price: 15,
       stock: 100,
+      categories: [clothing],
       description: 'tshirt with the MEAN logo'
     }, {
       title: 'coffee mug',
       imageUrl: '/assets/uploads/meanmug.jpg',
       price: 8,
       stock: 50,
+      categories: [home],
       description: 'Convert coffee into MEAN code'
-    })
-    .then(function() {
-      console.log('finished populating products');
     });
+  })
+  .then(function () {
+    console.log('Finished populating Products with categories');
+  })
+  .then(null, function (err) {
+    console.error('Error populating Products & categories: ', err);
   });
