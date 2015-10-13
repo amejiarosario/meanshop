@@ -26,6 +26,6 @@ angular.module('meanshopApp')
         // focus on search box
         var searchBox = $window.document.getElementById('searchBox');
         if(searchBox){ searchBox.focus(); }
-      })
+      });
     };
   });
