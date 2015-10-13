@@ -60,14 +60,14 @@ Catalog
       categories: [books],
       description: 'Build a powerful e-commerce application quickly with MEAN, a leading full-JavaScript stack. It takes you step-by-step from creating a real-world store to managing details such as authentication, shopping carts, payment, scalability and more.'
     }, {
-      title: 'tshirt',
+      title: 'T-shirt',
       imageUrl: '/assets/uploads/meantshirt.jpg',
       price: 15,
       stock: 100,
       categories: [clothing],
       description: 'tshirt with the MEAN logo'
     }, {
-      title: 'coffee mug',
+      title: 'Coffee Mug',
       imageUrl: '/assets/uploads/meanmug.jpg',
       price: 8,
       stock: 50,
