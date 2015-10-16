@@ -9,4 +9,54 @@
         <a ng-click="delete(user)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
     </li>
   </ul>
+
+
+  <h1>Users</h1>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <tr>
+        <th>User</th>
+        <th>Role</th>
+        <th>Provider</th>
+        <th>Actions</th>
+      </tr>
+      <tr ng-repeat="user in users">
+        <td>{{user.name}} <span class="text-muted">{{user.email}}</span></td>
+        <td class="success" ng-class="{'success' : user.role == 'admin', 'info': user.role == 'user' }">{{user.role}}</td>
+        <td>{{user.provider}}</td>
+        <td>
+          <a ng-click="deleteUser(user)"><i class="fa fa-2x fa-trash-o"></i></a>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <h1>Products</h1>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Categories</th>
+        <th>Actions</th>
+      </tr>
+      <tr ng-repeat="product in products">
+        <td>{{product.title}}</td>
+        <td>{{product.price | currency}}</td>
+        <td>{{product.stock}}</td>
+        <td>
+          <span ng-repeat="category in product.categories">
+            <a ui-sref="productCatalog({slug: category.slug})">{{category.name}}</a>
+          </span>
+        </td>
+        <td>
+          <a ng-click="showProduct(product)"><i class="fa fa-2x fa-eye"></i></a>
+          <a ng-click="editProduct(product)"><i class="fa fa-2x fa-pencil"></i></a>
+          <a ng-click="deleteProduct(product)"><i class="fa fa-2x fa-trash-o"></i></a>
+        </td>
+      </tr>
+    </table>
+  </div>
+
 </div>
