@@ -7,6 +7,14 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
+server '159.203.111.103', user: 'deployer', roles: %w{web app db},
+  private_ip: '10.132.37.66', primary: true
+
+set :default_env, {
+  # NODE_ENV: 'production',
+  path: "/home/#{fetch(:user)}/.nvm/versions/node/#{fetch(:node_version)}/bin:$PATH"
+}
+
 
 
 # role-based syntax
