@@ -7,7 +7,7 @@ describe('Products View', function() {
       description = title + ' description',
       price = parseInt(timestamp / 100000000000);
 
-  describe('CREATE Products', function() {
+  describe.only('CREATE Products', function() {
     beforeEach(function () {
       browser.get('/');
       // link to create product

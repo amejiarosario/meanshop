@@ -5,16 +5,16 @@
 
 <div class="row">
   <div class="col-md-2">
-    <div ngf-select="upload($file)" ngf-drop="upload($file)" class="drop-box"
-      ngf-drag-over-class="dragover" ngf-multiple="true"
-      ngf-pattern="'image/*'" ngf-max-size="15MB" accept="image/*">Drop Images here or click to upload</div>
+    <div ngf-select ngf-drop class="drop-box" ng-model="product.picture"
+      ngf-drag-over-class="dragover" ngf-multiple="false"
+      ngf-pattern="'image/*'" ngf-max-size="15MB" accept="image/*">Drop product image here or click to upload button</div>
     <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
 
-    <button accept="image/*" ngf-max-size="15MB" type="file" class="btn btn-primary" ngf-select="upload($file)">Upload on file select</button>
+    <button accept="image/*" type="file" class="btn btn-primary" ngf-select ngf-max-size="15MB" ng-model="product.picture">Upload picture</button>
 
-    <h2 ng-show="file">Preview</h2>
-    <img ngf-src="file" width="170px">
-    <div ng-show="file">{{file.name}} {{file.$error}} {{file.$errorParam}}</div>
+    <h2 ng-show="product.picture">Preview</h2>
+    <img ngf-src="product.picture" width="170px">
+    <div ng-show="product.picture">{{product.picture.name}} {{product.picture.$error}} {{product.picture.$errorParam}}</div>
   </div>
 
   <div class="col-md-10">

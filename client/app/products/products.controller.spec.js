@@ -70,12 +70,14 @@ describe('Controller: ProductsCtrl', function () {
       });
     }));
 
-    it('should create a new product and redirect to products', function() {
+    it('should create a new product and redirect to products', function(done) {
       var stub = sinon.stub(Product, 'save', callCallbackWithError(false));
       scope.product = mockProduct;
-      scope.addProduct();
-      assert(stub.withArgs(mockProduct).calledOnce);
-      state.go.should.have.been.calledWith('viewProduct', {id: mockProduct._id});
+      scope.addProduct().then(function () {
+        assert(stub.withArgs(mockProduct).calledOnce);
+        state.go.should.have.been.calledWith('viewProduct', {id: mockProduct._id});
+        done();
+      });
     });
 
     it('should not redirect if save fails', function() {
