@@ -1,4 +1,4 @@
-# Meanshop
+# Meanshop [![Build Status](https://travis-ci.org/amejiarosario/meanshop.svg?branch=master)](https://travis-ci.org/amejiarosario/meanshop)
 
 E-commerce Application built with the MEAN stack
 
