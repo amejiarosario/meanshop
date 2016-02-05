@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Controller: ProductsCtrl', function () {
-  var controller, scope, Product, state, mockProduct;
+  var controller, scope, Product, state, mockProduct, $q;
 
   var validAttributes = [
     {_id: 1, title: 'Product 1', price: 100.10, stock: 10 },
@@ -10,10 +10,11 @@ describe('Controller: ProductsCtrl', function () {
 
   beforeEach(module('meanshopApp'));
 
-  beforeEach(inject(function ($rootScope, _Product_/*, $state*/) {
+  beforeEach(inject(function ($rootScope, _Product_, _$q_ /*, $state*/) {
     scope = $rootScope.$new();
     mockProduct = validAttributes[0];
     Product = _Product_;
+    $q = _$q_;
 
     sinon.stub(Product, 'query').returns(validAttributes);
     sinon.stub(Product, 'get').returns(mockProduct);
@@ -70,19 +71,33 @@ describe('Controller: ProductsCtrl', function () {
       });
     }));
 
-    it('should create a new product and redirect to products', function() {
-      var stub = sinon.stub(Product, 'save', callCallbackWithError(false));
+    it('should create a new product and redirect to products', function(done) {
+      var d = $q.defer();
+      var productSave = sinon.stub(Product, 'save').returns({$promise: d.promise});
+      var productUpload = sinon.stub(Product, 'upload').returns(d.promise);
       scope.product = mockProduct;
-      scope.addProduct();
-      assert(stub.withArgs(mockProduct).calledOnce);
-      state.go.should.have.been.calledWith('viewProduct', {id: mockProduct._id});
+      scope.product.picture = 'mock-picture';
+      scope.addProduct().then(function () {
+        assert(productSave.withArgs(mockProduct).calledOnce);
+        assert(productUpload.withArgs(scope.product.picture, mockProduct._id).calledOnce);
+        state.go.should.have.been.calledWith('viewProduct', {id: mockProduct._id});
+        done();
+      });
+      d.resolve(mockProduct);
+      scope.$digest();
     });
 
-    it('should not redirect if save fails', function() {
-      sinon.stub(Product, 'save', callCallbackWithError(true));
+    it('should not redirect if save fails', function(done) {
+      var d = $q.defer();
+      var productSave = sinon.stub(Product, 'save').returns({$promise: d.promise});
       scope.product = mockProduct;
-      scope.addProduct();
-      expect(state.go.calledOnce).to.equal(false);
+      scope.addProduct().then(function functionName() {
+        assert(productSave.withArgs(mockProduct).calledOnce);
+        expect(state.go.calledOnce).to.equal(false);
+        done();
+      });
+      d.reject();
+      scope.$digest();
     });
   });
 

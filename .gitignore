@@ -39,3 +39,4 @@ dist
 # Others
 npm-debug.log
 sandbox/
+client/assets/uploads/

@@ -35,9 +35,11 @@ angular.module('meanshopApp')
   .controller('ProductNewCtrl', function ($scope, $state, Product) {
     $scope.product = {}; // create a new instance
     $scope.addProduct = function(){
-      Product.save($scope.product, function success(value /*, responseHeaders*/){
-        $state.go('viewProduct', {id: value._id});
-      }, errorHandler($scope));
+      return Product.save($scope.product).$promise.then(function (product) {
+        return Product.upload($scope.product.picture, product._id);
+      }).then(function (product) {
+        $state.go('viewProduct', {id: product._id});
+      }).catch(errorHandler($scope));
     };
   })
 
@@ -75,6 +77,7 @@ angular.module('meanshopApp')
 
 errorHandler = function ($scope){
   return function error(httpResponse){
+    console.log('failed: ', httpResponse);
     $scope.errors = httpResponse;
   };
 };
