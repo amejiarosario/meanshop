@@ -1,13 +1,17 @@
 'use strict';
 
-describe('Products View', function() {
+var path = require('path');
+
+describe.only('Products View', function() {
   var page = require('./product.po'),
       timestamp = (new Date()).getTime(),
       title = 'Product ' + timestamp,
       description = title + ' description',
-      price = parseInt(timestamp / 100000000000);
+      price = parseInt(timestamp / 100000000000),
+      filePath = '../fixtures/meanbook.jpg',
+      absolutePath = path.resolve(__dirname, filePath);
 
-  describe.only('CREATE Products', function() {
+  describe('CREATE Products', function() {
     beforeEach(function () {
       browser.get('/');
       // link to create product
@@ -15,11 +19,12 @@ describe('Products View', function() {
       expect(browser.getCurrentUrl()).to.eventually.match(/\/products\/new$/);
 
       // filling out the form
-      element(by.model('product.title')).sendKeys(title);
-      element(by.model('product.description')).sendKeys(description);
+      page.inputTitle.sendKeys(title);
+      page.inputDescription.sendKeys(description);
     });
 
     it('should create a product', function() {
+      page.inputFile.sendKeys(absolutePath);
       element(by.model('product.price')).sendKeys(price);
       page.saveButton.click();
 
@@ -33,8 +38,17 @@ describe('Products View', function() {
     });
 
     it('should show an error if price is not provided', function() {
+      page.inputFile.sendKeys(absolutePath);
       page.saveButton.click();
       expect(element(by.className('errors')).getText()).to.eventually.match(/`price` is required/);
+      expect(browser.getCurrentUrl()).to.eventually.match(/\/products\/new$/);
+    });
+
+    it('should show an error if picture is not uploaded', function() {
+      page.inputTitle.sendKeys('no pic');
+      element(by.model('product.price')).sendKeys(price);
+      page.saveButton.click();
+      expect(element(by.className('errors')).getText()).to.eventually.match(/file/);
       expect(browser.getCurrentUrl()).to.eventually.match(/\/products\/new$/);
     });
   });
@@ -49,22 +63,15 @@ describe('Products View', function() {
       expect(element.all(page.products.column("product.price")).first().getText()).to.eventually.equal('$' + price.toFixed(2));
     });
 
-    it('should truncate long descriptions to 100 chars', function() {
-      expect(element.all(page.products.column("product.description")).first().getText())
-        .to.eventually.equal(description.substring(0, 100) + ' ...');
-    });
   });
 
   describe('UPDATE products', function() {
-    beforeEach(function () {
-      browser.get('/products');
-      expect(element.all(page.products).count()).to.eventually.equal(1);
-      page.detailsLink.click();
-      element(by.linkText('Edit')).click();
-      expect(browser.getCurrentUrl()).to.eventually.match(/edit$/);
-    });
-
     it('should update the title', function() {
+      browser.get('/products');
+      element(by.linkText(title)).click();
+      element(by.linkText('EDIT')).click();
+      expect(browser.getCurrentUrl()).to.eventually.match(/edit$/);
+
       page.inputTitle.sendKeys('Updated');
       page.inputDescription.sendKeys('Updated');
       page.inputPrice.sendKeys('.12');
@@ -79,11 +86,10 @@ describe('Products View', function() {
   describe('DELETE products', function () {
     it('should be able to delete existing product', function() {
       browser.get('/products');
-      expect(element.all(page.products).count()).to.eventually.equal(1);
-      page.detailsLink.click();
-      element(by.linkText('Delete')).click();
+      element(by.linkText(title + 'Updated')).click();
+      element(by.linkText('DELETE')).click();
       expect(browser.getCurrentUrl()).to.eventually.match(/\/products$/);
-      expect(element.all(page.products).count()).to.eventually.equal(0);
+      expect(element.all(page.products.column("product.title")).getText()).not.to.eventually.contain(title + 'Updated');
     });
   });
 });

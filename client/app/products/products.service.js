@@ -39,7 +39,7 @@ angular.module('meanshopApp')
           d.notify({progress: Math.min(100, parseInt(100.0 * evt.loaded / evt.total))}, evt);
         });
       } else {
-        d.reject(file.$error || 'No file');
+        d.reject(file ? file.$error : 'No picture file');
       }
       return d.promise;
     };
