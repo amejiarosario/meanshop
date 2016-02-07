@@ -116,17 +116,33 @@ describe('Controller: ProductsCtrl', function () {
       expect(scope.product).to.equal(mockProduct);
     });
 
-    it('should edit product and redirect to view if success', function() {
-      var stub = sinon.stub(Product, 'update', callCallbackWithError(false));
-      scope.editProduct();
-      assert(stub.withArgs({id: mockProduct._id}).calledOnce);
-      state.go.should.have.been.calledWith('viewProduct', {id: mockProduct._id});
+    it('should edit product and redirect to view if success', function(done) {
+      var d = $q.defer();
+      var productUpdate = sinon.stub(Product, 'update').returns({$promise: d.promise});
+      var productUpload = sinon.stub(Product, 'upload').returns(d.promise);
+      scope.product = mockProduct;
+      scope.product.picture = 'mock-picture-updated';
+      scope.editProduct().then(function () {
+        assert(productUpdate.calledOnce);
+        assert(productUpload.withArgs(scope.product.picture, mockProduct._id).calledOnce);
+        state.go.should.have.been.calledWith('viewProduct', {id: mockProduct._id});
+        done();
+      });
+      d.resolve(mockProduct);
+      scope.$digest();
     });
 
-    it('should not redirect if failed', function() {
-      sinon.stub(Product, 'update', callCallbackWithError(true, mockProduct));
-      scope.editProduct();
-      expect(state.go.calledOnce).to.equal(false);
+    it('should not redirect if failed', function(done) {
+      var d = $q.defer();
+      var productUpdate = sinon.stub(Product, 'update').returns({$promise: d.promise});
+      scope.product = mockProduct;
+      scope.editProduct().then(function functionName() {
+        assert(productUpdate.calledOnce);
+        expect(state.go.calledOnce).to.equal(false);
+        done();
+      });
+      d.reject();
+      scope.$digest();
     });
   });
 
