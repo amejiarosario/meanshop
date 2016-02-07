@@ -15,6 +15,8 @@ var ProductPage = function() {
   this.detailsLink = element(by.linkText('Details'));
 
   this.products = by.repeater('product in products');
+
+  this.imageSrc = element(by.css('img'));
 };
 
 module.exports = new ProductPage();

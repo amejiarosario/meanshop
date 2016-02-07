@@ -2,14 +2,16 @@
 
 var path = require('path');
 
-describe.only('Products View', function() {
+describe('Products View', function() {
   var page = require('./product.po'),
       timestamp = (new Date()).getTime(),
       title = 'Product ' + timestamp,
       description = title + ' description',
       price = parseInt(timestamp / 100000000000),
       filePath = '../fixtures/meanbook.jpg',
-      absolutePath = path.resolve(__dirname, filePath);
+      absolutePath = path.resolve(__dirname, filePath),
+      newFilePath = '../fixtures/meanstack.png',
+      newAbsPath = path.resolve(__dirname, newFilePath);
 
   describe('CREATE Products', function() {
     beforeEach(function () {
@@ -59,14 +61,14 @@ describe.only('Products View', function() {
     });
 
     it('should have the newly created product', function() {
-      expect(element.all(page.products.column("product.title")).first().getText()).to.eventually.equal(title);
-      expect(element.all(page.products.column("product.price")).first().getText()).to.eventually.equal('$' + price.toFixed(2));
+      expect(element.all(page.products.column("product.title")).getText()).to.eventually.contain(title);
+      expect(element.all(page.products.column("product.price")).getText()).to.eventually.contain('$' + price.toFixed(2));
     });
 
   });
 
   describe('UPDATE products', function() {
-    it('should update the title', function() {
+    it('should update the title, description, price and image', function() {
       browser.get('/products');
       element(by.linkText(title)).click();
       element(by.linkText('EDIT')).click();
@@ -75,11 +77,13 @@ describe.only('Products View', function() {
       page.inputTitle.sendKeys('Updated');
       page.inputDescription.sendKeys('Updated');
       page.inputPrice.sendKeys('.12');
+      page.inputFile.sendKeys(newAbsPath);
       page.saveButton.click();
       expect(browser.getCurrentUrl()).not.to.eventually.match(/edit$/);
       expect(page.title.getText()).to.eventually.equal(title + 'Updated');
       expect(page.description.getText()).to.eventually.equal(description + 'Updated');
       expect(page.price.getText()).to.eventually.equal('$' + (price + 0.12).toFixed(2));
+      expect(page.imageSrc.getAttribute('src')).to.eventually.match(/png$/);
     });
   });
 
