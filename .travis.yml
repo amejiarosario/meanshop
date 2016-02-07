@@ -1,6 +1,10 @@
 language: node_js
 node_js:
   - '0.12'
+cache:
+  directories:
+    - node_modules
+    - client/bower_components
 before_script:
   - npm install -g bower grunt-cli
   - gem install sass
