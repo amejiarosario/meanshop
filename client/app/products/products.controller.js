@@ -46,9 +46,11 @@ angular.module('meanshopApp')
   .controller('ProductEditCtrl', function ($scope, $state, $stateParams, Product, Upload, $timeout) {
     $scope.product = Product.get({id: $stateParams.id});
     $scope.editProduct = function(){
-      Product.update({id: $scope.product._id}, $scope.product, function success(value /*, responseHeaders*/){
-        $state.go('viewProduct', {id: value._id});
-      }, errorHandler($scope));
+      return Product.update({id: $scope.product._id}, $scope.product).$promise.then(function (product) {
+        return Product.upload($scope.product.picture, product._id);
+      }).then(function (product) {
+        $state.go('viewProduct', {id: product._id});
+      }).catch(errorHandler($scope));
     };
 
     $scope.upload = uploadHander($scope, Upload, $timeout);
