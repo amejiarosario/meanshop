@@ -717,7 +717,7 @@ module.exports = function (grunt) {
           'clean:server',
           'env:all',
           'env:test',
-          'db:clean',
+          // 'db:clean',
           'injector:sass',
           'concurrent:test',
           'injector',
@@ -792,6 +792,7 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'newer:jshint',
     'test',
-    'build'
+    'test:e2e'
+    // 'build'
   ]);
 };
