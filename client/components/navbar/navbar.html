@@ -12,9 +12,8 @@
     <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
         <li ng-repeat="item in menu" ui-sref-active="active">
-            <a ui-sref="{{item.state}}">{{item.title}}</a>
+            <a ui-sref="{{item.state}}"><i class="fa fa-{{item.icon}}"></i> {{item.title}}</a>
         </li>
-        <li ng-show="isAdmin()" ui-sref-active="active"><a ui-sref="admin">Admin</a></li>
       </ul>
 
       <!-- search bar -->
@@ -29,11 +28,23 @@
 
 
       <ul class="nav navbar-nav navbar-right">
-        <li ng-hide="isLoggedIn()" ui-sref-active="active"><a ui-sref="signup">Sign up</a></li>
-        <li ng-hide="isLoggedIn()" ui-sref-active="active"><a ui-sref="login">Login</a></li>
-        <li ng-show="isLoggedIn()"><p class="navbar-text">Hello {{ getCurrentUser().name }}</p> </li>
-        <li ng-show="isLoggedIn()" ui-sref-active="active"><a ui-sref="settings"><span class="glyphicon glyphicon-cog"></span></a></li>
-        <li ng-show="isLoggedIn()"><a ui-sref="logout">Logout</a></li>
+        <li ng-hide="isLoggedIn()" ui-sref-active="active"><a ui-sref="signup"><i class="fa fa-user-plus"></i> Sign up</a></li>
+        <li ng-hide="isLoggedIn()" ui-sref-active="active"><a ui-sref="login"><i class="fa fa-sign-in"></i> Login</a></li>
+        <!-- Actions -->
+        <li ng-show="isLoggedIn()" ui-sref-active="active" class="dropdown" dropdown>
+          <a href="#" class="dropdown-toggle" dropdown-toggle data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-cog"></i> {{ getCurrentUser().name }} <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a ui-sref="settings">Change Password</a></li>
+            <li>
+              <a ui-sref="admin">Manage Users</a>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Create Product</a></li>
+          </ul>
+        </li>
+        <li ng-show="isLoggedIn()"><a ui-sref="logout"><i class="fa fa-sign-out"></i> Logout</a></li>
         <li>
           <a ui-sref="checkout">
             <ngcart-summary template-url="components/ngcart/summary.html"></ngcart-summary>
