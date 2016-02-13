@@ -36,12 +36,10 @@
             <i class="fa fa-cog"></i> {{ getCurrentUser().name }} <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a ui-sref="settings">Change Password</a></li>
-            <li>
-              <a ui-sref="admin">Manage Users</a>
-            </li>
+            <li><a ui-sref="settings"><i class="fa fa-key"></i> Change Password</a></li>
+            <li><a ui-sref="admin"><i class="fa fa-users"></i> Manage Users</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Create Product</a></li>
+            <li><a ui-sref="newProduct"><i class="fa fa-plus"></i> Create Product</a></li>
           </ul>
         </li>
         <li ng-show="isLoggedIn()"><a ui-sref="logout"><i class="fa fa-sign-out"></i> Logout</a></li>
