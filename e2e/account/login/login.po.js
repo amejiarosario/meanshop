@@ -19,9 +19,8 @@ var LoginPage = function() {
       }
     }
 
-    this.form.submit.click();
+    return this.form.submit.click();
   };
 };
 
 module.exports = new LoginPage();
-
