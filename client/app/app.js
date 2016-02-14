@@ -48,10 +48,11 @@ angular.module('meanshopApp', [
 
   .run(function($rootScope, $state, Auth) {
     // Redirect to login if route requires auth and the user is not logged in
+    // also if the user role doesn't match with the one in `next.authenticate`
     $rootScope.$on('$stateChangeStart', function(event, next) {
       if (next.authenticate) {
-        Auth.isLoggedIn(function(loggedIn) {
-          if (!loggedIn) {
+        Auth.isLoggedIn(function(role) {
+          if (!role || role !== next.authenticate) {
             event.preventDefault();
             $state.go('login');
           }

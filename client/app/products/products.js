@@ -13,7 +13,7 @@ angular.module('meanshopApp')
         url: '/products/new',
         templateUrl: 'app/products/templates/product-new.html',
         controller: 'ProductNewCtrl',
-        authenticate: true
+        authenticate: 'admin'
       })
 
       .state('viewProduct', {
@@ -26,7 +26,7 @@ angular.module('meanshopApp')
         url: '/products/:id/edit',
         templateUrl: 'app/products/templates/product-edit.html',
         controller: 'ProductEditCtrl',
-        authenticate: true
+        authenticate: 'admin'
       })
 
       .state('checkout', {

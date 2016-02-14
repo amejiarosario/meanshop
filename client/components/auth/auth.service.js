@@ -132,9 +132,9 @@ angular.module('meanshopApp')
 
         return this.getCurrentUser(null)
           .then(function(user) {
-            var is = user.hasOwnProperty('role');
-            safeCb(callback)(is);
-            return is;
+            var role = user['role'];
+            safeCb(callback)(role);
+            return role;
           });
       },
 
