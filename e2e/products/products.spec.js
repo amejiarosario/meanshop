@@ -55,12 +55,12 @@ describe('Products View', function() {
       expect(browser.getCurrentUrl()).to.eventually.equal(config.baseUrl + '/login');
     });
 
-    // it('should NOT create a product with a non-admin user', function() {
-    //   page.login(admin);
-    //   navbar.navbarAccountGreeting.click();
-    //   expect(navbar.navbarAccountGreeting.isDisplayed()).to.eventually.equal(false);
-    //   expect(navbar.createProduct.isPresent()).to.eventually.equal(false);
-    // });
+    it('should NOT create a product with a non-admin user', function() {
+      page.login(user);
+      navbar.navbarAccountGreeting.click();
+      browser.get(config.baseUrl + '/products/new');
+      expect(browser.getCurrentUrl()).to.not.eventually.match(/\/products\/new$/);
+    });
 
     it('should access a product with an admin user', function() {
       page.login(admin);
