@@ -1,6 +1,10 @@
 'use strict';
 
 var path = require('path');
+var config = browser.params;
+var ProductModel = require(config.serverConfig.root + '/server/api/product/product.model');
+var UserModel = require(config.serverConfig.root + '/server/api/user/user.model');
+var page = require('../account/login/login.po');
 
 describe('Products View', function() {
   var page = require('./product.po'),
@@ -13,7 +17,52 @@ describe('Products View', function() {
       newFilePath = '../fixtures/meanstack.png',
       newAbsPath = path.resolve(__dirname, newFilePath);
 
+  before(function () {
+    ProductModel.removeAsync().then(function () {
+      return User.createAsync({
+          provider: 'local',
+          name: 'Test User',
+          email: 'test@test.com',
+          password: 'test'
+        }, {
+          provider: 'local',
+          role: 'admin',
+          name: 'Admin',
+          email: 'admin@admin.com',
+          password: process.env.ADMIN_PASSWORD || 'admin'
+        });
+    });
+  });
+
+  after(function () {
+    ProductModel.removeAsync().then(function () {
+      UserModel.removeAsync();
+    });
+  });
+
+  describe('Authentication', function() {
+
+    it('should NOT create a product with a non-authenticated user', function() {
+      browser.get('/products/new');
+      expect(browser.getCurrentUrl()).to.eventually.equal(config.baseUrl + '/login');
+    });
+
+    it('should NOT create a product with a non-admin user', function() {
+      page.login('test@test.com', 'test');
+      browser.get('/products/new');
+      expect(browser.getCurrentUrl()).to.eventually.equal(config.baseUrl + '/login');
+    });
+
+    it('should access a product with an admin user', function() {
+      page.login('admin@admin.com', 'admin');
+      browser.get('/products/new');
+      expect(browser.getCurrentUrl()).to.eventually.match(/\/products\/new$/);
+    });
+
+  });
+
   describe('CREATE Products', function() {
+
     beforeEach(function () {
       browser.get('/');
       // link to create product

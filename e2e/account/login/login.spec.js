@@ -47,7 +47,7 @@ describe('Login View', function() {
       var navbar = require('../../components/navbar/navbar.po');
 
       expect(browser.getCurrentUrl()).to.eventually.equal(config.baseUrl + '/');
-      expect(navbar.navbarAccountGreeting.getText()).to.eventually.equal('Hello ' + testUser.name);
+      expect(navbar.navbarAccountGreeting.getText()).to.eventually.match(new RegExp(testUser.name));
     });
 
     describe('and invalid credentials', function() {
