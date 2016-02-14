@@ -15,9 +15,9 @@
 
         <div class="productprice">
           <div class="pull-right">
-            <ngcart-addtocart id="{{product._id}}" name="{{product.title}}" price="{{product.price}}" template-url="components/ngcart/addtocart.html" data="product">ADD</ngcart-addtocart>
-            <a ui-sref="editProduct({id: product._id})" class="btn btn-default btn-sm" role="button">EDIT</a>
-            <a class="btn btn-default btn-sm" ng-click="deleteProduct()">DELETE</a>
+            <ngcart-addtocart id="{{product._id}}" name="{{product.title}}" price="{{product.price}}" template-url="components/ngcart/addtocart.html" data="product">BUY</ngcart-addtocart>
+            <a ng-show="user.role === 'admin'" ui-sref="editProduct({id: product._id})" class="btn btn-default btn-sm" role="button">EDIT</a>
+            <a ng-show="user.role === 'admin'" class="btn btn-default btn-sm" ng-click="deleteProduct()">DELETE</a>
           </div>
           <div class="pricetext">{{product.price | currency }}</div>
         </div>

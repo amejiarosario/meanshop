@@ -12,6 +12,9 @@ var NavbarComponent = function() {
   this.navbarAccount = this.navbar.element(by.css('#navbar-main .nav.navbar-nav.navbar-right'));
   this.navbarAccountGreeting = this.navbarAccount.element(by.binding('getCurrentUser().name'));
   this.createProduct = this.navbar.element(by.linkText('Create Product'));
+  this.menuItem = function (linkText) {
+    return this.navbar.element(by.linkText(linkText));
+  };
 };
 
 module.exports = new NavbarComponent();

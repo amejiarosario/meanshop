@@ -20,7 +20,7 @@ var admin = {
   password: 'admin'
 };
 
-describe('Products View', function() {
+describe.only('Products View', function() {
   var product = require('./product.po'),
       timestamp = (new Date()).getTime(),
       title = 'Product ' + timestamp,
@@ -45,7 +45,7 @@ describe('Products View', function() {
     });
   });
 
-  describe.only('Authentication', function() {
+  describe('Authentication', function() {
     beforeEach(function () {
       browser.get(config.baseUrl + '/login');
     });
@@ -74,9 +74,10 @@ describe('Products View', function() {
 
     beforeEach(function () {
       browser.get(config.baseUrl + '/login');
-      page.login('admin@admin.com', 'admin');
+      page.login(admin);
       // link to create product
-      element(by.buttonText('Add Product')).click();
+      navbar.navbarAccountGreeting.click();
+      navbar.createProduct.click();
       expect(browser.getCurrentUrl()).to.eventually.match(/\/products\/new$/);
 
       // filling out the form
@@ -116,7 +117,9 @@ describe('Products View', function() {
 
   describe('READ Products', function() {
     beforeEach(function () {
-      browser.get('/products');
+      browser.get(config.baseUrl + '/login');
+      page.login(admin);
+      navbar.menuItem('Products').click();
     });
 
     it('should have the newly created product', function() {
@@ -127,8 +130,13 @@ describe('Products View', function() {
   });
 
   describe('UPDATE products', function() {
+    beforeEach(function () {
+      browser.get(config.baseUrl + '/login');
+      page.login(admin);
+      navbar.menuItem('Products').click();
+    });
+
     it('should update the title, description, price and image', function() {
-      browser.get('/products');
       element(by.linkText(title)).click();
       element(by.linkText('EDIT')).click();
       expect(browser.getCurrentUrl()).to.eventually.match(/edit$/);
@@ -147,8 +155,13 @@ describe('Products View', function() {
   });
 
   describe('DELETE products', function () {
+    beforeEach(function () {
+      browser.get(config.baseUrl + '/login');
+      page.login(admin);
+      navbar.menuItem('Products').click();
+    });
+
     it('should be able to delete existing product', function() {
-      browser.get('/products');
       element(by.linkText(title + 'Updated')).click();
       element(by.linkText('DELETE')).click();
       expect(browser.getCurrentUrl()).to.eventually.match(/\/products$/);
