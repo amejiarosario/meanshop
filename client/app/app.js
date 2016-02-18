@@ -54,7 +54,7 @@ angular.module('meanshopApp', [
         Auth.isLoggedIn(function(role) {
           if (!role || role !== next.authenticate) {
             event.preventDefault();
-            $state.go('login');
+            $state.go('onlyAdmin');
           }
         });
       }

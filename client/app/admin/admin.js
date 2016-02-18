@@ -6,6 +6,12 @@ angular.module('meanshopApp')
       .state('admin', {
         url: '/admin',
         templateUrl: 'app/admin/admin.html',
-        controller: 'AdminCtrl'
+        controller: 'AdminCtrl',
+        authenticate: 'admin'
+      })
+
+      .state('onlyAdmin', {
+        url: '/admin-access',
+        templateUrl: 'app/admin/only-admin.html'
       });
   });
