@@ -22,7 +22,7 @@ User.find({}).removeAsync()
       role: 'admin',
       name: 'Admin',
       email: 'admin@admin.com',
-      password: 'admin'
+      password: process.env.ADMIN_PASSWORD || 'admin'
     })
     .then(function() {
       console.log('finished populating users');

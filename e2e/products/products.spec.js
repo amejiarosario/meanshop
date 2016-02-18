@@ -1,9 +1,27 @@
 'use strict';
 
 var path = require('path');
+var config = browser.params;
+var ProductModel = require(config.serverConfig.root + '/server/api/product/product.model');
+var UserModel = require(config.serverConfig.root + '/server/api/user/user.model');
+var page = require('../account/login/login.po');
+var navbar = require('../components/navbar/navbar.po');
+var user = {
+  provider: 'local',
+  name: 'Test User',
+  email: 'test@test.com',
+  password: 'test'
+};
+var admin = {
+  provider: 'local',
+  role: 'admin',
+  name: 'Admin',
+  email: 'admin@admin.com',
+  password: 'admin'
+};
 
-describe('Products View', function() {
-  var page = require('./product.po'),
+describe.only('Products View', function() {
+  var product = require('./product.po'),
       timestamp = (new Date()).getTime(),
       title = 'Product ' + timestamp,
       description = title + ' description',
@@ -13,43 +31,85 @@ describe('Products View', function() {
       newFilePath = '../fixtures/meanstack.png',
       newAbsPath = path.resolve(__dirname, newFilePath);
 
-  describe('CREATE Products', function() {
+  before(function () {
+    return ProductModel.removeAsync().then(function () {
+      return UserModel.removeAsync();
+    }).then(function(){
+      return UserModel.createAsync(user, admin);
+    });
+  });
+
+  after(function () {
+    return ProductModel.removeAsync().then(function () {
+      return UserModel.removeAsync();
+    });
+  });
+
+  describe('Authentication', function() {
     beforeEach(function () {
-      browser.get('/');
+      browser.get(config.baseUrl + '/login');
+    });
+
+    it('should NOT create a product with a non-authenticated user', function() {
+      browser.get(config.baseUrl + '/products/new');
+      expect(browser.getCurrentUrl()).to.eventually.equal(config.baseUrl + '/login');
+    });
+
+    it('should NOT create a product with a non-admin user', function() {
+      page.login(user);
+      navbar.navbarAccountGreeting.click();
+      browser.get(config.baseUrl + '/products/new');
+      expect(browser.getCurrentUrl()).to.not.eventually.match(/\/products\/new$/);
+    });
+
+    it('should access a product with an admin user', function() {
+      page.login(admin);
+      navbar.navbarAccountGreeting.click();
+      navbar.createProduct.click();
+      expect(browser.getCurrentUrl()).to.eventually.match(/\/products\/new$/);
+    });
+  });
+
+  describe('CREATE Products', function() {
+
+    beforeEach(function () {
+      browser.get(config.baseUrl + '/login');
+      page.login(admin);
       // link to create product
-      element(by.buttonText('Add Product')).click();
+      navbar.navbarAccountGreeting.click();
+      navbar.createProduct.click();
       expect(browser.getCurrentUrl()).to.eventually.match(/\/products\/new$/);
 
       // filling out the form
-      page.inputTitle.sendKeys(title);
-      page.inputDescription.sendKeys(description);
+      product.inputTitle.sendKeys(title);
+      product.inputDescription.sendKeys(description);
     });
 
     it('should create a product', function() {
-      page.inputFile.sendKeys(absolutePath);
+      product.inputFile.sendKeys(absolutePath);
       element(by.model('product.price')).sendKeys(price);
-      page.saveButton.click();
+      product.saveButton.click();
 
-      // should redirecto to product page
+      // should redirecto to product product
       expect(browser.getCurrentUrl()).to.eventually.match(/\/products\//);
 
       // should have fields
-      expect(page.title.getText()).to.eventually.equal(title);
-      expect(page.description.getText()).to.eventually.equal(description);
-      expect(page.price.getText()).to.eventually.equal('$' + price.toFixed(2));
+      expect(product.title.getText()).to.eventually.equal(title);
+      expect(product.description.getText()).to.eventually.equal(description);
+      expect(product.price.getText()).to.eventually.equal('$' + price.toFixed(2));
     });
 
     it('should show an error if price is not provided', function() {
-      page.inputFile.sendKeys(absolutePath);
-      page.saveButton.click();
+      product.inputFile.sendKeys(absolutePath);
+      product.saveButton.click();
       expect(element(by.className('errors')).getText()).to.eventually.match(/`price` is required/);
       expect(browser.getCurrentUrl()).to.eventually.match(/\/products\/new$/);
     });
 
     it('should show an error if picture is not uploaded', function() {
-      page.inputTitle.sendKeys('no pic');
+      product.inputTitle.sendKeys('no pic');
       element(by.model('product.price')).sendKeys(price);
-      page.saveButton.click();
+      product.saveButton.click();
       expect(element(by.className('errors')).getText()).to.eventually.match(/file/);
       expect(browser.getCurrentUrl()).to.eventually.match(/\/products\/new$/);
     });
@@ -57,43 +117,55 @@ describe('Products View', function() {
 
   describe('READ Products', function() {
     beforeEach(function () {
-      browser.get('/products');
+      browser.get(config.baseUrl + '/login');
+      page.login(admin);
+      navbar.menuItem('Products').click();
     });
 
     it('should have the newly created product', function() {
-      expect(element.all(page.products.column("product.title")).getText()).to.eventually.contain(title);
-      expect(element.all(page.products.column("product.price")).getText()).to.eventually.contain('$' + price.toFixed(2));
+      expect(element.all(product.products.column("product.title")).getText()).to.eventually.contain(title);
+      expect(element.all(product.products.column("product.price")).getText()).to.eventually.contain('$' + price.toFixed(2));
     });
 
   });
 
   describe('UPDATE products', function() {
+    beforeEach(function () {
+      browser.get(config.baseUrl + '/login');
+      page.login(admin);
+      navbar.menuItem('Products').click();
+    });
+
     it('should update the title, description, price and image', function() {
-      browser.get('/products');
       element(by.linkText(title)).click();
       element(by.linkText('EDIT')).click();
       expect(browser.getCurrentUrl()).to.eventually.match(/edit$/);
 
-      page.inputTitle.sendKeys('Updated');
-      page.inputDescription.sendKeys('Updated');
-      page.inputPrice.sendKeys('.12');
-      page.inputFile.sendKeys(newAbsPath);
-      page.saveButton.click();
+      product.inputTitle.sendKeys('Updated');
+      product.inputDescription.sendKeys('Updated');
+      product.inputPrice.sendKeys('.12');
+      product.inputFile.sendKeys(newAbsPath);
+      product.saveButton.click();
       expect(browser.getCurrentUrl()).not.to.eventually.match(/edit$/);
-      expect(page.title.getText()).to.eventually.equal(title + 'Updated');
-      expect(page.description.getText()).to.eventually.equal(description + 'Updated');
-      expect(page.price.getText()).to.eventually.equal('$' + (price + 0.12).toFixed(2));
-      expect(page.imageSrc.getAttribute('src')).to.eventually.match(/png$/);
+      expect(product.title.getText()).to.eventually.equal(title + 'Updated');
+      expect(product.description.getText()).to.eventually.equal(description + 'Updated');
+      expect(product.price.getText()).to.eventually.equal('$' + (price + 0.12).toFixed(2));
+      expect(product.imageSrc.getAttribute('src')).to.eventually.match(/png$/);
     });
   });
 
   describe('DELETE products', function () {
+    beforeEach(function () {
+      browser.get(config.baseUrl + '/login');
+      page.login(admin);
+      navbar.menuItem('Products').click();
+    });
+
     it('should be able to delete existing product', function() {
-      browser.get('/products');
       element(by.linkText(title + 'Updated')).click();
       element(by.linkText('DELETE')).click();
       expect(browser.getCurrentUrl()).to.eventually.match(/\/products$/);
-      expect(element.all(page.products.column("product.title")).getText()).not.to.eventually.contain(title + 'Updated');
+      expect(element.all(product.products.column("product.title")).getText()).not.to.eventually.contain(title + 'Updated');
     });
   });
 });

@@ -10,6 +10,15 @@ var productCtrlStub = {
   destroy: 'productCtrl.destroy'
 };
 
+var authServiceStub = {
+  isAuthenticated: function() {
+    return 'authService.isAuthenticated';
+  },
+  hasRole: function(role) {
+    return 'authService.hasRole.' + role;
+  }
+};
+
 var routerStub = {
   get: sinon.spy(),
   put: sinon.spy(),
@@ -25,7 +34,8 @@ var productIndex = proxyquire('./index.js', {
       return routerStub;
     }
   },
-  './product.controller': productCtrlStub
+  './product.controller': productCtrlStub,
+  '../../auth/auth.service': authServiceStub
 });
 
 describe('Product API Router:', function() {
@@ -58,7 +68,7 @@ describe('Product API Router:', function() {
 
     it('should route to product.controller.create', function() {
       routerStub.post
-                .withArgs('/', 'productCtrl.create')
+                .withArgs('/', 'authService.hasRole.admin', 'productCtrl.create')
                 .should.have.been.calledOnce;
     });
 
@@ -68,7 +78,7 @@ describe('Product API Router:', function() {
 
     it('should route to product.controller.update', function() {
       routerStub.put
-                .withArgs('/:id', 'productCtrl.update')
+                .withArgs('/:id', 'authService.hasRole.admin', 'productCtrl.update')
                 .should.have.been.calledOnce;
     });
 
@@ -78,7 +88,7 @@ describe('Product API Router:', function() {
 
     it('should route to product.controller.update', function() {
       routerStub.patch
-                .withArgs('/:id', 'productCtrl.update')
+                .withArgs('/:id', 'authService.hasRole.admin', 'productCtrl.update')
                 .should.have.been.calledOnce;
     });
 
@@ -88,7 +98,7 @@ describe('Product API Router:', function() {
 
     it('should route to product.controller.destroy', function() {
       routerStub.delete
-                .withArgs('/:id', 'productCtrl.destroy')
+                .withArgs('/:id', 'authService.hasRole.admin', 'productCtrl.destroy')
                 .should.have.been.calledOnce;
     });
 
