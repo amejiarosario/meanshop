@@ -89,6 +89,7 @@ describe('Products View', function() {
       product.inputFile.sendKeys(absolutePath);
       element(by.model('product.price')).sendKeys(price);
       product.saveButton.click();
+      browser.waitForAngular();
 
       // should redirecto to product product
       expect(browser.getCurrentUrl()).to.eventually.match(/\/products\//);
@@ -146,6 +147,8 @@ describe('Products View', function() {
       product.inputPrice.sendKeys('.12');
       product.inputFile.sendKeys(newAbsPath);
       product.saveButton.click();
+      browser.waitForAngular();
+      
       expect(browser.getCurrentUrl()).not.to.eventually.match(/edit$/);
       expect(product.title.getText()).to.eventually.equal(title + 'Updated');
       expect(product.description.getText()).to.eventually.equal(description + 'Updated');
