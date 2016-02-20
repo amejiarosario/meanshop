@@ -26,7 +26,6 @@
         </div>
       </form>
 
-
       <ul class="nav navbar-nav navbar-right">
         <li ng-hide="isLoggedIn()" ui-sref-active="active"><a ui-sref="signup"><i class="fa fa-user-plus"></i> Sign up</a></li>
         <li ng-hide="isLoggedIn()" ui-sref-active="active"><a ui-sref="login"><i class="fa fa-sign-in"></i> Login</a></li>
@@ -37,9 +36,9 @@
           </a>
           <ul class="dropdown-menu">
             <li><a ui-sref="settings"><i class="fa fa-key"></i> Change Password</a></li>
-            <li><a ui-sref="admin"><i class="fa fa-users"></i> Manage Users</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a ui-sref="newProduct"><i class="fa fa-plus"></i> Create Product</a></li>
+            <li ng-show="isAdmin()" role="separator" class="divider"></li>
+            <li ng-show="isAdmin()"><a ui-sref="admin"><i class="fa fa-users"></i> Manage Users</a></li>
+            <li ng-show="isAdmin()"><a ui-sref="newProduct"><i class="fa fa-plus"></i> Create Product</a></li>
           </ul>
         </li>
         <li ng-show="isLoggedIn()"><a ui-sref="logout"><i class="fa fa-sign-out"></i> Logout</a></li>
