@@ -89,8 +89,8 @@ describe('Products View', function() {
       product.inputFile.sendKeys(absolutePath);
       element(by.model('product.price')).sendKeys(price);
       product.saveButton.click().then(function () {
-        // should redirecto to product product
-        expect(browser.getCurrentUrl()).to.eventually.match(/\/products\//);
+        // should redirect to product view
+        expect(browser.getCurrentUrl()).to.eventually.match(/view$/);
 
         // should have fields
         expect(product.title.getText()).to.eventually.equal(title);

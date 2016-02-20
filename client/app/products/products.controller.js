@@ -26,7 +26,6 @@ angular.module('meanshopApp')
   .controller('ProductViewCtrl', function ($scope, $state, $stateParams, Product, Auth) {
     $scope.product = Product.get({id: $stateParams.id});
     $scope.user = Auth.getCurrentUser();
-    console.log($scope.user);
     $scope.deleteProduct = function(){
       Product.delete({id: $scope.product._id}, function success(/* value, responseHeaders */) {
         $state.go('products');
