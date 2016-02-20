@@ -20,7 +20,7 @@ var admin = {
   password: 'admin'
 };
 
-describe.only('Products View', function() {
+describe('Products View', function() {
   var product = require('./product.po'),
       timestamp = (new Date()).getTime(),
       title = 'Product ' + timestamp,
@@ -52,7 +52,7 @@ describe.only('Products View', function() {
 
     it('should NOT create a product with a non-authenticated user', function() {
       browser.get(config.baseUrl + '/products/new');
-      expect(browser.getCurrentUrl()).to.eventually.equal(config.baseUrl + '/login');
+      expect(browser.getCurrentUrl()).to.eventually.equal(config.baseUrl + '/admin-access');
     });
 
     it('should NOT create a product with a non-admin user', function() {
