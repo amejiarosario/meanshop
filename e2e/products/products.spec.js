@@ -88,16 +88,15 @@ describe('Products View', function() {
     it('should create a product', function() {
       product.inputFile.sendKeys(absolutePath);
       element(by.model('product.price')).sendKeys(price);
-      product.saveButton.click();
-      browser.waitForAngular();
+      product.saveButton.click().then(function () {
+        // should redirecto to product product
+        expect(browser.getCurrentUrl()).to.eventually.match(/\/products\//);
 
-      // should redirecto to product product
-      expect(browser.getCurrentUrl()).to.eventually.match(/\/products\//);
-
-      // should have fields
-      expect(product.title.getText()).to.eventually.equal(title);
-      expect(product.description.getText()).to.eventually.equal(description);
-      expect(product.price.getText()).to.eventually.equal('$' + price.toFixed(2));
+        // should have fields
+        expect(product.title.getText()).to.eventually.equal(title);
+        expect(product.description.getText()).to.eventually.equal(description);
+        expect(product.price.getText()).to.eventually.equal('$' + price.toFixed(2));
+      });
     });
 
     it('should show an error if price is not provided', function() {
@@ -146,14 +145,13 @@ describe('Products View', function() {
       product.inputDescription.sendKeys('Updated');
       product.inputPrice.sendKeys('.12');
       product.inputFile.sendKeys(newAbsPath);
-      product.saveButton.click();
-      browser.waitForAngular();
-      
-      expect(browser.getCurrentUrl()).not.to.eventually.match(/edit$/);
-      expect(product.title.getText()).to.eventually.equal(title + 'Updated');
-      expect(product.description.getText()).to.eventually.equal(description + 'Updated');
-      expect(product.price.getText()).to.eventually.equal('$' + (price + 0.12).toFixed(2));
-      expect(product.imageSrc.getAttribute('src')).to.eventually.match(/png$/);
+      product.saveButton.click().then(function () {
+        expect(browser.getCurrentUrl()).not.to.eventually.match(/edit$/);
+        expect(product.title.getText()).to.eventually.equal(title + 'Updated');
+        expect(product.description.getText()).to.eventually.equal(description + 'Updated');
+        expect(product.price.getText()).to.eventually.equal('$' + (price + 0.12).toFixed(2));
+        expect(product.imageSrc.getAttribute('src')).to.eventually.match(/png$/);
+      });
     });
   });
 
