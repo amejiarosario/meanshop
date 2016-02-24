@@ -20,7 +20,7 @@ var admin = {
   password: 'admin'
 };
 
-describe.only('Products View', function() {
+describe('Products View', function() {
   var product = require('./product.po'),
       timestamp = (new Date()).getTime(),
       title = 'Product ' + timestamp,
@@ -52,7 +52,7 @@ describe.only('Products View', function() {
 
     it('should NOT create a product with a non-authenticated user', function() {
       browser.get(config.baseUrl + '/products/new');
-      expect(browser.getCurrentUrl()).to.eventually.equal(config.baseUrl + '/login');
+      expect(browser.getCurrentUrl()).to.eventually.equal(config.baseUrl + '/admin-access');
     });
 
     it('should NOT create a product with a non-admin user', function() {
@@ -88,15 +88,15 @@ describe.only('Products View', function() {
     it('should create a product', function() {
       product.inputFile.sendKeys(absolutePath);
       element(by.model('product.price')).sendKeys(price);
-      product.saveButton.click();
+      product.saveButton.click().then(function () {
+        // should redirect to product view
+        expect(browser.getCurrentUrl()).to.eventually.match(/view$/);
 
-      // should redirecto to product product
-      expect(browser.getCurrentUrl()).to.eventually.match(/\/products\//);
-
-      // should have fields
-      expect(product.title.getText()).to.eventually.equal(title);
-      expect(product.description.getText()).to.eventually.equal(description);
-      expect(product.price.getText()).to.eventually.equal('$' + price.toFixed(2));
+        // should have fields
+        expect(product.title.getText()).to.eventually.equal(title);
+        expect(product.description.getText()).to.eventually.equal(description);
+        expect(product.price.getText()).to.eventually.equal('$' + price.toFixed(2));
+      });
     });
 
     it('should show an error if price is not provided', function() {
@@ -145,12 +145,13 @@ describe.only('Products View', function() {
       product.inputDescription.sendKeys('Updated');
       product.inputPrice.sendKeys('.12');
       product.inputFile.sendKeys(newAbsPath);
-      product.saveButton.click();
-      expect(browser.getCurrentUrl()).not.to.eventually.match(/edit$/);
-      expect(product.title.getText()).to.eventually.equal(title + 'Updated');
-      expect(product.description.getText()).to.eventually.equal(description + 'Updated');
-      expect(product.price.getText()).to.eventually.equal('$' + (price + 0.12).toFixed(2));
-      expect(product.imageSrc.getAttribute('src')).to.eventually.match(/png$/);
+      product.saveButton.click().then(function () {
+        expect(browser.getCurrentUrl()).not.to.eventually.match(/edit$/);
+        expect(product.title.getText()).to.eventually.equal(title + 'Updated');
+        expect(product.description.getText()).to.eventually.equal(description + 'Updated');
+        expect(product.price.getText()).to.eventually.equal('$' + (price + 0.12).toFixed(2));
+        expect(product.imageSrc.getAttribute('src')).to.eventually.match(/png$/);
+      });
     });
   });
 
