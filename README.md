@@ -84,7 +84,7 @@ For any question, ideas for improvement use [click here](https://github.com/amej
 # Contributing
 If you have ideas to make this app better (and you should! 😉) you can contribute your features using the following instructions:
 
-1. Fork it clicking the fork button on the top right corner of this page or [clicking here](https://github.com/amejiarosario/meanshop#fork-destination-box).
+1. Fork it clicking the fork button on the top right corner of this page.
 2. Create your feature branch: `git checkout -b my-new-feature`.
 3. Commit your changes: `git add . && git commit -m 'Add some feature'`.
 4. Push to the branch: `git push origin my-new-feature`
