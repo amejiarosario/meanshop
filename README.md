@@ -47,11 +47,8 @@ gem install sass
 ## MongoDB v3.x
 
 - Mac: `brew install mongodb 3.0.2`
-- Ubuntu: 
-'sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10'
-'echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list'
-'sudo apt-get update'
-'sudo apt-get install -y mongodb-org=3.0.2 mongodb-org-server=3.0.2 mongodb-org-shell=3.0.2 mongodb-org-mongos=3.0.2 mongodb-org-tools=3.0.2'
+- Ubuntu: `sudo apt-get -y install mongodb=3.0.2`
+
 
 ## Source code
 You can either build the project from scratch following the instructions on the book's chapter 1 or get the source code.
@@ -59,7 +56,22 @@ You can either build the project from scratch following the instructions on the 
 git clone https://github.com/amejiarosario/meanshop.git
 cd meanshop
 npm install
-bower install --allow-root
+bower install
+```
+
+## Troubleshooting
+Depending on the OS, there are some subtle differences.
+
+If you don't have enough permissions consider using: `sudo npm install` vs `npm install`
+
+Allows running commands as root: `bower install --allow-root`
+
+Detailed MongoDB installation on Ubuntu:
+```bash
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org=3.0.2 mongodb-org-server=3.0.2 mongodb-org-shell=3.0.2 mongodb-org-mongos=3.0.2 mongodb-org-tools=3.0.2
 ```
 
 ## Getting a chapter's code
