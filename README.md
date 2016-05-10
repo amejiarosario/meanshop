@@ -11,6 +11,8 @@ This e-commerce platform is built step-by-step on my book "Building an e-Commerc
 
 ![Building an e-Commerce Application with MEAN](https://raw.githubusercontent.com/amejiarosario/meanshop/master/e2e/fixtures/meanshop-book.png "Building an e-Commerce Application with MEAN")
 
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
 # Installation
 
 The following instructions are the most common to get the development environment up and running. If you run into issues, check out the [troubleshooting](#troubleshooting) section and alternative OS-independent installations using [Docker](#docker).
