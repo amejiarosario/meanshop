@@ -1,0 +1,18 @@
+version: '2'
+services:
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"
+  web:
+    build: .
+    command: npm start
+    volumes:
+      - .:/meanshop
+    ports:
+      - "7000:7000"
+    depends_on:
+      - db
+    environment:
+      PORT: 7000
+      MONGODB_DB_URL: "mongodb://db/meanshop"

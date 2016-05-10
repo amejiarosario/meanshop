@@ -13,7 +13,10 @@ This e-commerce platform is built step-by-step on my book "Building an e-Commerc
 
 # Installation
 
+The following instructions are the most common to get the development environment up and running. If you run into issues, check out the [troubleshooting](#Troubleshooting) section and alternative OS-independent installations using [Docker](#Docker).
+
 ## Node v0.12.x
+This installation covers *nix like systems (OS X and Ubuntu/Linux). Windows? check out https://github.com/coreybutler/nvm-windows
 
 You need Node 0.12 in your system. Verify if you already have it with `node -v`. If not or a different version, you can use Node Version Manager (nvm) to install it:
 ```bash
@@ -25,17 +28,17 @@ nvm use 0.12
 
 ## NPM global dependencies
 ```bash
+# Bower
+npm install -g bower
+
+# Grunt CLI
+npm install -g grunt-cli
+
 # Yeaoman
 npm install -g yo
 
 # Angular fullstack generators
 npm install -g generator-angular-fullstack@3.0.0-rc4
-
-# Grunt CLI
-npm install -g grunt-cli
-
-# Bower
-npm install -g bower
 ```
 
 ## Sass dependencies
@@ -57,21 +60,6 @@ git clone https://github.com/amejiarosario/meanshop.git
 cd meanshop
 npm install
 bower install
-```
-
-## Troubleshooting
-Depending on the OS, there are some subtle differences.
-
-If you don't have enough permissions consider using: `sudo npm install` vs `npm install`
-
-Allows running commands as root: `bower install --allow-root`
-
-Detailed MongoDB installation on Ubuntu:
-```bash
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
-sudo apt-get update
-sudo apt-get install -y mongodb-org=3.0.2 mongodb-org-server=3.0.2 mongodb-org-shell=3.0.2 mongodb-org-mongos=3.0.2 mongodb-org-tools=3.0.2
 ```
 
 ## Getting a chapter's code
@@ -139,6 +127,96 @@ You can visualize all the set variables with
 
 Any other update can be refreshed on Heroku by typing the following command:
 `grunt buildcontrol:heroku`.
+
+# Troubleshooting
+
+Depending on the OS, there are some subtle differences.
+
+If you don't have enough permissions consider using: `sudo npm install` vs `npm install`
+
+Allows running commands as root: `bower install --allow-root`
+
+Detailed MongoDB installation on Ubuntu:
+```bash
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org=3.0.2 mongodb-org-server=3.0.2 mongodb-org-shell=3.0.2 mongodb-org-mongos=3.0.2 mongodb-org-tools=3.0.2
+```
+
+# Docker
+
+Docker allows to run app independently from OS. It works for Windows, Mac, Linux and most cloud providers (AWS, Digital Ocean, ...).  Just need to install docker from [https://www.docker.com/](https://www.docker.com/).
+
+After installing docker programs, go to the terminal:
+
+```bash
+# make sure you have them available
+docker --version
+docker-compose --version
+
+# start docker daemons
+docker-machine ls
+docker-machine start default
+eval "$(docker-machine env default)"
+
+# create VMs (might take a while the first time since installs all NPM packages)
+docker-compose build
+
+# run the app
+docker-compose up -d
+
+# get ip of the VM
+docker-machine ip
+
+# open browser with running app on http://192.168.99.100:7000
+open http://$(docker-machine ip):7000 # only OS X
+
+# List containers
+docker-compose ps
+
+#      Name               Command          State            Ports
+#      -------------------------------------------------------------------------
+#      meanshop_db_1    /entrypoint.sh mongod   Up      0.0.0.0:27017->27017/tcp
+#      meanshop_web_1   npm start               Up      0.0.0.0:7000->7000/tcp
+
+# Run commands in containers (e.g. database container)
+docker exec -it meanshop_db_1 bash
+
+#=>     root@834d77cc6b36:/# mongo
+#=>     MongoDB shell version: 3.2.6
+#=>     connecting to: test
+#=>     Welcome to the MongoDB shell.
+#=>     
+#=>     > show dbs
+#=>     local         0.000GB
+#=>     meanshop      0.000GB
+#=>     meanshop-dev  0.000GB
+#=>     
+#=>     > use meanshop-dev
+#=>     switched to db meanshop-dev
+#=>     
+#=>     > show collections
+#=>     catalogs
+#=>     products
+#=>     sessions
+#=>     users
+#=>
+#=>     > db.products.find({})
+#=>     { "_id" : ObjectId("573204ad48b9ba0c001eea3b"), "title" : "MEAN eCommerce Book", "imageUrl" : "/assets/uploads/meanbook.jpg", "price" : 25, "description" : "Build a powerful e-commerce application quickly with MEAN, a leading full-JavaScript stack. It takes you step-by-step from creating a real-world store to managing details such as authentication, shopping carts, payment, scalability and more.", "categories" : [ ObjectId("573204ad48b9ba0c001eea39") ], "stock" : 250, "__v" : 0 }
+#=>     { "_id" : ObjectId("573204ad48b9ba0c001eea3c"), "title" : "T-shirt", "imageUrl" : "/assets/uploads/meantshirt.jpg", "price" : 15, "description" : "T-shirt with the MEAN stack logo", "categories" : [ ObjectId("573204ad48b9ba0c001eea3a") ], "stock" : 100, "__v" : 0 }
+#=>     { "_id" : ObjectId("573204ad48b9ba0c001eea3d"), "title" : "Coffee Mug", "imageUrl" : "/assets/uploads/meanmug.jpg", "price" : 8, "description" : "Convert coffee into MEAN code", "categories" : [ ObjectId("573204ad48b9ba0c001eea38") ], "stock" : 50, "__v" : 0 }
+
+
+# View logs
+docker-compose logs # or docker-compose logs web # or docker-compose logs db
+
+# Stop services
+docker-compose stop
+
+# Remove stopped containers
+docker-compose rm
+```
 
 # Contact
 Find my contact info at [http://adrianmejia.com](http://adrianmejia.com).
