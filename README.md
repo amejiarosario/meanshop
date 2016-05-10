@@ -11,7 +11,26 @@ This e-commerce platform is built step-by-step on my book "Building an e-Commerc
 
 ![Building an e-Commerce Application with MEAN](https://raw.githubusercontent.com/amejiarosario/meanshop/master/e2e/fixtures/meanshop-book.png "Building an e-Commerce Application with MEAN")
 
-**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [Installation](#installation)
+  - [Node v0.12.x](#node-v012x)
+  - [NPM global dependencies](#npm-global-dependencies)
+  - [Sass dependencies](#sass-dependencies)
+  - [MongoDB v3.x](#mongodb-v3x)
+  - [Source code](#source-code)
+  - [Getting a chapter's code](#getting-a-chapters-code)
+- [Usage](#usage)
+- [Issues](#issues)
+- [Contributing](#contributing)
+- [Deploying to Heroku](#deploying-to-heroku)
+- [Troubleshooting](#troubleshooting)
+- [Docker](#docker)
+- [Contact](#contact)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Installation
 
