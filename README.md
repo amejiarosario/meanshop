@@ -13,7 +13,7 @@ This e-commerce platform is built step-by-step on my book "Building an e-Commerc
 
 # Installation
 
-The following instructions are the most common to get the development environment up and running. If you run into issues, check out the [troubleshooting](#Troubleshooting) section and alternative OS-independent installations using [Docker](#Docker).
+The following instructions are the most common to get the development environment up and running. If you run into issues, check out the [troubleshooting](#troubleshooting) section and alternative OS-independent installations using [Docker](#docker).
 
 ## Node v0.12.x
 This installation covers *nix like systems (OS X and Ubuntu/Linux). Windows? check out https://github.com/coreybutler/nvm-windows
