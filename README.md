@@ -63,7 +63,10 @@ npm install -g generator-angular-fullstack@3.0.0-rc4
 ```
 
 ## Sass dependencies
-You need to have ruby in your system. Mac OS X and Linux ship with Ruby, verify by typing `ruby -v`. Then install the sass gem (library).
+You need to have ruby in your system. Mac OS X and Linux ship with Ruby, verify by typing `ruby -v`.
+**Windows**: if you are using windows install Ruby with [http://rubyinstaller.org/downloads/](http://rubyinstaller.org/downloads/)
+
+Then, install the sass gem (library):
 ```
 gem install sass
 ```
