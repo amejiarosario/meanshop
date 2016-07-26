@@ -93,7 +93,7 @@ By default when you checkout, you get the `master` branch which is the latests v
 git checkout ch1
 
 # checking out chapter 7
-git checkout ch1
+git checkout ch7
 
 # checking out the latest
 git checkout master
