@@ -30,7 +30,7 @@ function responseWithResult(res, statusCode) {
 
 exports.clientToken = function(req, res){
   Braintree.clientToken.generate({}, function (err, data) {
-    return handleResponse(res)(err, data.clientToken);
+    return handleResponse(res)(err, data && data.clientToken);
   });
 }
 
