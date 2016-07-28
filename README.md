@@ -127,11 +127,11 @@ Note: Everytime a keys is added you need to stop `grunt serve` and start it agai
 
 **Using the Braintree sandbox account**
 
-We can test the work ow of order creation by running the application:
+We can test the workflow of order creation by running the application:
 
 1. Add multiple products to the shopping cart.
 2. Checkout the products using some valid credit card numbers for testing such as 4111 1111 1111 1111 or 4242 4242 4242 4242.
-3. Any expiration date in the future will work.
+3. Any expiration date in the future will do.
 
 ## Optional for social Login 
 
