@@ -23,6 +23,8 @@ This e-commerce platform is built step-by-step on my book "Building an e-Commerc
   - [Source code](#source-code)
   - [Getting a chapter's code](#getting-a-chapters-code)
 - [Usage](#usage)
+- [Setting up 3rd party Integrations](#setting-up-3rd-party-integrations)
+  - [Optional for social Login](#optional-for-social-login)
 - [Issues](#issues)
 - [Contributing](#contributing)
 - [Deploying to Heroku](#deploying-to-heroku)
