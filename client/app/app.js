@@ -51,10 +51,18 @@ angular.module('meanshopApp', [
     // also if the user role doesn't match with the one in `next.authenticate`
     $rootScope.$on('$stateChangeStart', function(event, next) {
       if (next.authenticate) {
-        Auth.isLoggedIn(function(role) {
-          if (!role || role !== next.authenticate) {
-            event.preventDefault();
+        var loggedIn = Auth.isLoggedIn(function(role) {
+          if (role && role === next.authenticate) {
+            return; // logged in and roles matches
+          }
+
+          event.preventDefault();
+          if(role) {
+            // logged in but not have the privileges (roles mismatch)
             $state.go('onlyAdmin');
+          } else {
+            // not logged in
+            $state.go('login');
           }
         });
       }
