@@ -123,6 +123,16 @@ Get Braintree keys from:  https:// www.braintreepayments.com/get-started. Check 
   BRAINTREE_MERCHANT: 'merchant ID',
 ```
 
+Note: Everytime a keys is added you need to stop `grunt serve` and start it again.
+
+**Using the Braintree sandbox account**
+
+We can test the work ow of order creation by running the application:
+
+1. Add multiple products to the shopping cart.
+2. Checkout the products using some valid credit card numbers for testing such as 4111 1111 1111 1111 or 4242 4242 4242 4242.
+3. Any expiration date in the future will work.
+
 ## Optional for social Login 
 
 In the chapter 6 you can find more detailed information. Here's a summary of what you need:
