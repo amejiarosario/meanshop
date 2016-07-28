@@ -106,6 +106,44 @@ git checkout master
   - run e2e tests: `grunt test:e2e`
   - compile assets: `grunt build`
 
+# Setting up 3rd party Integrations
+
+You need 3rd party API credentials to be able to use the application. They are stored in the `local.env.js`, but since it will contain sensitive information you need to create it yourself. Use the sample file `local.env.sample.js` to make a copy of a real one:
+
+```bash
+cp server/config/local.env.sample.js server/config/local.env.js
+```
+
+Get Braintree keys from:  https:// www.braintreepayments.com/get-started. Check book chapter 7 for more details.
+```bash
+  BRAINTREE_ID: 'public key',
+  BRAINTREE_SECRET: 'private key',
+  BRAINTREE_MERCHANT: 'merchant ID',
+```
+
+## Optional for social Login 
+
+In the chapter 6 you can find more detailed information. Here's a summary of what you need:
+
+Go to Facebook Developers and register your app: https://developers.facebook.com
+```bash
+  FACEBOOK_ID:      'app-id',
+  FACEBOOK_SECRET:  'secret',
+```
+
+Go to Twitter Apps and get your app registred: https://apps.twitter.com
+```bash
+  TWITTER_ID:       'app-id',
+  TWITTER_SECRET:   'secret',
+```
+
+Go to Google Developers and get the credentials:  https://console.developers.google.com/project
+```bash
+  GOOGLE_ID:        'app-id',
+  GOOGLE_SECRET:    'secret',
+```
+
+
 # Issues
 For any question, ideas for improvement use [click here](https://github.com/amejiarosario/meanshop/issues/new).
 
