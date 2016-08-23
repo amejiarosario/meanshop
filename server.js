@@ -1,11 +1,25 @@
 const http = require('http');
+const port = 9000;
 
 http.createServer(function (req, res) {
-  // server code
+  let body = [];
 
   console.log(`${req.method} ${req.url}`);
 
-  res.end('Hello World');
-}).listen(9000);
+  req
+    .on('data', function (data) {
+      body.push(data);
+    })
+    .on('end', function () {
+      console.log(`body: ${body.join()}`);
+    })
+    .on('error', function (err) {
+      console.error(err);
+      res.end(400, err);
+    });
 
-console.log('Server listening on port 9000');
+  res.end('bye!');
+
+}).listen(port);
+
+console.log(`Server listening on port ${port}`);
