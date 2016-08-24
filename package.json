@@ -4,7 +4,7 @@
   "description": "E-Commerce App with MEAN",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node static_server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
