@@ -14,8 +14,8 @@ http.createServer(function (req, res) {
   let pathname = `.${parsedUrl.pathname}`;
   // based on the URL path, extract the file extention. e.g. .js, .doc, ...
   const ext = path.parse(pathname).ext;
-  // maps file extention to MIME typere
-  const map = {
+  // maps file extention to MIME types
+  const mimeType = {
     '.ico': 'image/x-icon',
     '.html': 'text/html',
     '.js': 'text/javascript',
@@ -27,7 +27,9 @@ http.createServer(function (req, res) {
     '.mp3': 'audio/mpeg',
     '.svg': 'image/svg+xml',
     '.pdf': 'application/pdf',
-    '.doc': 'application/msword'
+    '.doc': 'application/msword',
+    '.eot': 'appliaction/vnd.ms-fontobject',
+    '.ttf': 'aplication/font-sfnt'
   };
 
   fs.exists(pathname, function (exist) {
@@ -38,9 +40,9 @@ http.createServer(function (req, res) {
       return;
     }
 
-    // if is a directory search for index file matching the extention
+    // if is a directory, then look for index.html
     if (fs.statSync(pathname).isDirectory()) {
-      pathname += '/index' + ext;
+      pathname += '/index.html';
     }
 
     // read file from file system
@@ -50,7 +52,7 @@ http.createServer(function (req, res) {
         res.end(`Error getting the file: ${err}.`);
       } else {
         // if the file is found, set Content-type and send data
-        res.setHeader('Content-type', map[ext] || 'text/plain' );
+        res.setHeader('Content-type', mimeType[ext] || 'text/plain' );
         res.end(data);
       }
     });
@@ -60,3 +62,4 @@ http.createServer(function (req, res) {
 }).listen(parseInt(port));
 
 console.log(`Server listening on port ${port}`);
+
