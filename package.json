@@ -2,20 +2,59 @@
   "name": "meanshop",
   "version": "2.0.0",
   "description": "E-Commerce App with MEAN",
-  "main": "index.js",
-  "scripts": {
-    "start": "node static_server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "homepage": "http://meanshop.com",
+  "license": "MIT",
+  "author": "Adrian Mejia",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/amejiarosario/meanshop.git"
   },
   "keywords": [],
-  "author": "Adrian Mejia",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/amejiarosario/meanshop/issues"
   },
-  "homepage": "http://meanshop.com"
+  "scripts": {
+    "start": "webpack-dev-server --inline --progress --port 9000",
+    "test": "karma start",
+    "build": "rimraf dist && webpack --config config/webpack.production.js --progress --profile --bail",
+    "postinstall": "typings install"
+  },
+  "dependencies": {
+    "@angular/common": "2.0.0-rc.6",
+    "@angular/compiler": "2.0.0-rc.6",
+    "@angular/core": "2.0.0-rc.6",
+    "@angular/forms": "2.0.0-rc.6",
+    "@angular/http": "2.0.0-rc.6",
+    "@angular/platform-browser": "2.0.0-rc.6",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.6",
+    "@angular/router": "3.0.0-rc.2",
+    "core-js": "^2.4.1",
+    "rxjs": "5.0.0-beta.11",
+    "zone.js": "^0.6.17"
+  },
+  "devDependencies": {
+    "angular2-template-loader": "^0.4.0",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
+    "html-loader": "^0.4.3",
+    "html-webpack-plugin": "^2.15.0",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-jasmine": "^0.3.8",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^1.7.0",
+    "null-loader": "^0.1.1",
+    "phantomjs-prebuilt": "^2.1.7",
+    "raw-loader": "^0.5.1",
+    "rimraf": "^2.5.2",
+    "style-loader": "^0.13.1",
+    "ts-loader": "^0.8.1",
+    "typescript": "^1.8.10",
+    "typings": "^1.0.4",
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-merge": "^0.14.0"
+  }
 }
