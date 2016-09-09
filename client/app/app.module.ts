@@ -3,7 +3,7 @@ import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { ProductDetailsComponent } from '../+products/product-details.component';
+import { ProductsComponent, ProductDetailsComponent } from '../+products';
 
 @NgModule({
   imports:      [
@@ -12,6 +12,7 @@ import { ProductDetailsComponent } from '../+products/product-details.component'
   ],
   declarations: [
     AppComponent,
+    ProductsComponent,
     ProductDetailsComponent
   ],
   bootstrap:    [ AppComponent ]

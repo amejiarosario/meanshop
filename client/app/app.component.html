@@ -1,16 +1,3 @@
 <main>
-  <!--<h1>{{title}}</h1>-->
-
-  <h2>Products</h2>
-  <ul class="products">
-    <li *ngFor="let product of products"
-        [class.selected]="selectedProduct === product"
-        (click)="onSelect(product)">
-      {{product.name}} - {{ product.price | currency }}
-    </li>
-  </ul>
-
-
-  <product-detail [product]="selectedProduct"></product-detail>
-
+  <products></products>
 </main>
