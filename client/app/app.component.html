@@ -2,5 +2,20 @@
   <h1>{{title}}</h1>
 
   <h2>Products</h2>
-  {{product.name}}
+  <ul class="products">
+    <li *ngFor="let product of products"
+        [class.selected]="selectedProduct === product"
+        (click)="onSelect(product)">
+      {{product.name}} - {{ product.price | currency }}
+    </li>
+  </ul>
+
+
+  <div *ngIf="selectedProduct">
+    <label>name: </label>
+    <input [(ngModel)]="selectedProduct.name" placeholder="name">
+    <label>Price: </label>
+    <input type="number" [(ngModel)]="selectedProduct.price" placeholder="7.00">
+  </div>
+
 </main>
