@@ -17,6 +17,11 @@ module.exports = {
   module: {
     loaders: [
       {
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        loaders: ['raw-loader', 'sass-loader']
+      },
+      {
         test: /\.ts$/,
         loaders: ['ts', 'angular2-template-loader']
       },
