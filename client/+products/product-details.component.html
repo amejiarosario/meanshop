@@ -1,0 +1,10 @@
+<div *ngIf="product">
+  <h2>{{ product.name }}</h2>
+  <p>{{ product.price | currency }}</p>
+
+  <label>name: </label>
+  <input [(ngModel)]="product.name" placeholder="name">
+  <label>Price: </label>
+  <input type="number" [(ngModel)]="product.price" placeholder="7.00">
+</div>
+

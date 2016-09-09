@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import { Product } from '../+products/product';
 
 import '../../public/stylesheets/styles.css';
 
@@ -33,10 +34,4 @@ export class AppComponent {
       price: 6
     }
   ];
-}
-
-export class Product {
-  id: number | string;
-  name: string;
-  price: number;
 }
