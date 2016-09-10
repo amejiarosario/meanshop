@@ -10,8 +10,9 @@ export class ProductDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute){}
 
   ngOnInit(): void {
-    let id = this.route.params;
-    console.log(id);
+    this.route.params.subscribe({
+      next: (params: any) => console.log('Products id: ', params.id)
+    });
   }
 
   @Input()
