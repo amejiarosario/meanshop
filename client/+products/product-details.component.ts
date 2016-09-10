@@ -1,11 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Product } from './product';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: 'product-detail',
     templateUrl: 'product-details.component.html'
 })
-export class ProductDetailsComponent {
+export class ProductDetailsComponent implements OnInit {
+  constructor(private route: ActivatedRoute){}
+
+  ngOnInit(): void {
+    let id = this.route.params;
+    console.log(id);
+  }
+
   @Input()
   product: Product;
 }

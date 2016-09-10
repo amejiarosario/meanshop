@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+
 import { Product } from './product';
 
 @Component({
@@ -6,8 +8,7 @@ import { Product } from './product';
   templateUrl: 'products.component.html'
 })
 export class ProductsComponent implements OnInit {
-  constructor() {
-  }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -15,7 +16,7 @@ export class ProductsComponent implements OnInit {
   selectedProduct: Product;
 
   onSelect(product: Product) {
-    this.selectedProduct = product;
+    this.router.navigate(['/products', product.id]);
   }
 
   products: Product[] = [
