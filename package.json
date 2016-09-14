@@ -16,10 +16,15 @@
   "scripts": {
     "start": "webpack-dev-server --inline --progress --port 9000",
     "test": "karma start",
+    "postinstall": "typings install",
+
+    // tasks
     "build": "rimraf dist && webpack --config config/webpack.production.js --progress --profile --bail",
-    "postinstall": "typings install"
+    "server": "node ./server/bin/www"
   },
   "dependencies": {
+
+    // Angular2
     "@angular/common": "2.0.0-rc.6",
     "@angular/compiler": "2.0.0-rc.6",
     "@angular/core": "2.0.0-rc.6",
@@ -28,35 +33,50 @@
     "@angular/platform-browser": "2.0.0-rc.6",
     "@angular/platform-browser-dynamic": "2.0.0-rc.6",
     "@angular/router": "3.0.0-rc.2",
+
+    // Angular2 deps
     "core-js": "^2.4.1",
     "rxjs": "5.0.0-beta.11",
-    "zone.js": "^0.6.17"
+    "zone.js": "^0.6.17",
+
+    // Server
+    "body-parser": "~1.15.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "express": "~4.13.4",
+    "jade": "~1.11.0",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
-    "angular2-template-loader": "^0.4.0",
-    "css-loader": "^0.23.1",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "file-loader": "^0.8.5",
-    "html-loader": "^0.4.3",
-    "html-webpack-plugin": "^2.15.0",
     "jasmine-core": "^2.4.1",
+    "phantomjs-prebuilt": "^2.1.7",
+    "rimraf": "^2.5.2",
+    "typescript": "^1.8.10",
+    "typings": "^1.0.4",
+
+    // unit testing / karma / jasmine
     "karma": "^0.13.22",
     "karma-jasmine": "^0.3.8",
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
-    "node-sass": "3.9.3",
-    "null-loader": "^0.1.1",
-    "phantomjs-prebuilt": "^2.1.7",
+
+    // bundler / webpack
+    "webpack": "1.13.2",
+    "html-webpack-plugin": "^2.15.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-merge": "^0.14.0",
     "raw-loader": "0.5.1",
-    "rimraf": "^2.5.2",
+    "node-sass": "3.9.3",
     "sass-loader": "4.0.2",
     "style-loader": "^0.13.1",
     "ts-loader": "^0.8.1",
-    "typescript": "^1.8.10",
-    "typings": "^1.0.4",
-    "webpack": "1.13.2",
-    "webpack-dev-server": "^1.14.1",
-    "webpack-merge": "^0.14.0"
+    "angular2-template-loader": "^0.4.0",
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.8.5",
+    "html-loader": "^0.4.3",
+    "null-loader": "^0.1.1"
   }
 }

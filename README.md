@@ -5,12 +5,13 @@ E-commerce Application built with the MEAN 2.0 stack (Angular 2, Node 6+, Expres
 # Technology choices
 
   - ES6 (Node) and TypeScript (Angular) over ES5
-  - Angular 2 over React, Ember, Angular 1
+  - Angular 2 over Angular 1, React, Ember
   - Jasmine over Mocha
   - NPM tasks over Grunt/Gulp
   - Webpack over SystemJS/Browserify
   - SCSS (SASS) over Stylus, Less
-  - Google Material Design over Bootstrap, Semantic-UI
+  - Google Material Design over Bootstrap 3/4, Semantic-UI
+  - SockJS over SocketIO
 
 
 # Resources/CLI
