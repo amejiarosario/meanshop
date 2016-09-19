@@ -4,12 +4,19 @@
   "description": "E-Commerce App with MEAN",
   "homepage": "http://meanshop.com",
   "license": "MIT",
-  "author": "Adrian Mejia",
+  "author": "Adrian Mejia <me@adrianmejia.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/amejiarosario/meanshop.git"
   },
-  "keywords": [],
+  "keywords": [
+    "angular2",
+    "webpack",
+    "typescript",
+    "node",
+    "express",
+    "mongodb"
+  ],
   "bugs": {
     "url": "https://github.com/amejiarosario/meanshop/issues"
   },
