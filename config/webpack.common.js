@@ -52,7 +52,7 @@ module.exports = {
     }),
 
     new HtmlWebpackPlugin({
-      template: 'server/public/index.html'
+      template: 'client/index.html'
     })
   ]
 };

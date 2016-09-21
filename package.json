@@ -21,7 +21,7 @@
     "url": "https://github.com/amejiarosario/meanshop/issues"
   },
   "scripts": {
-    "start": "webpack-dev-server --inline --progress --port 9000",
+    "start": "./server/bin/www",
     "test": "karma start",
     "postinstall": "typings install",
 
