@@ -12,8 +12,6 @@ http.createServer(function (req, res) {
   const parsedUrl = url.parse(req.url);
   // extract URL path
   let pathname = `.${parsedUrl.pathname}`;
-  // based on the URL path, extract the file extention. e.g. .js, .doc, ...
-  const ext = path.parse(pathname).ext;
   // maps file extention to MIME types
   const mimeType = {
     '.ico': 'image/x-icon',
@@ -51,6 +49,8 @@ http.createServer(function (req, res) {
         res.statusCode = 500;
         res.end(`Error getting the file: ${err}.`);
       } else {
+        // based on the URL path, extract the file extention. e.g. .js, .doc, ...
+        const ext = path.parse(pathname).ext;
         // if the file is found, set Content-type and send data
         res.setHeader('Content-type', mimeType[ext] || 'text/plain' );
         res.end(data);
